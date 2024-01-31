@@ -32,6 +32,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val loginViewModel: LoginViewModel = viewModel()
+
                     Column(
                         //Column täyttää koko ruudun
                         modifier = Modifier.fillMaxSize(),
@@ -43,14 +44,14 @@ class MainActivity : ComponentActivity() {
                     ){
                         OutlinedTextField(value = loginViewModel.loginState.value.username,
                             onValueChange = {newUsername ->
-
+                                            loginViewModel.setLoginState(LoginReq(username = newUsername, loginViewModel.loginState.value.password))
                                             },
                             placeholder = {Text("Username")}
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         OutlinedTextField(value = loginViewModel.loginState.value.password,
                             onValueChange = {newPassword->
-
+                                            loginViewModel.setLoginState(LoginReq(loginViewModel.loginState.value.username, password = newPassword))
                                             },
                             placeholder = {Text("Password")}
                         )
