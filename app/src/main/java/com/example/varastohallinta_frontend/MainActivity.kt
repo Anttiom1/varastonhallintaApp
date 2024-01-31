@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Greetings("Juuh")
-
+                    //testing
                 }
             }
         }
