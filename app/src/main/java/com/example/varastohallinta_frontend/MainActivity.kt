@@ -17,6 +17,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
@@ -54,11 +55,14 @@ class MainActivity : ComponentActivity() {
                                     label = { Text(text = "Categories") },
                                     selected = true,
                                     onClick = { /*TODO*/ },
-                                    icon = { Icons.Filled.Home})
+                                    icon = {
+                                        Icon(
+                                            imageVector = Icons.Filled.Home,
+                                            contentDescription = "Home Icon")
+                                    }
+                                )
                             }
-                    }) {
-
-                    }
+                    }) {}
                 }
             }
         }
