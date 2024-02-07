@@ -3,13 +3,34 @@ package com.example.varastohallinta_frontend
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
-    private val _loginState = mutableStateOf<LoginReq>(LoginReq())
-    val loginState: State<LoginReq>  = _loginState
+    private val _loginState = mutableStateOf(LoginState())
+    val loginState: State<LoginState>  = _loginState
 
-    fun setLoginState(newLoginState : LoginReq){
-        _loginState.value = newLoginState
+    fun setUsername(newUsername : String){
+        _loginState.value = _loginState.value.copy(username = newUsername)
+    }
+
+    fun setPassword(newPassword : String){
+        _loginState.value = _loginState.value.copy(password = newPassword)
+    }
+
+    //Use only to simulate login delay
+    private suspend fun _waitForLogin(){
+        delay(2000)
+    }
+
+    fun login(){
+
+        viewModelScope.launch {
+            _loginState.value = _loginState.value.copy(loading = true)
+            _waitForLogin()
+            val res = LoginRes()
+            _loginState.value = _loginState.value.copy(loading = false)
+        }
     }
 }
-

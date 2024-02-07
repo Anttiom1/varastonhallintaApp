@@ -1,17 +1,27 @@
 package com.example.varastohallinta_frontend
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.NavigationDrawerItem
+import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -34,58 +44,23 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val loginViewModel: LoginViewModel = viewModel()
-
-                    Column(
-                        //Column täyttää koko ruudun
-                        modifier = Modifier.fillMaxSize(),
-                        //Keskittää pystysuuntaan
-                        verticalArrangement = Arrangement.Center,
-                        //Keskittää vaakasuuntaan
-                        horizontalAlignment = Alignment.CenterHorizontally
-
-                    ){
-                        OutlinedTextField(value = loginViewModel.loginState.value.username,
-                            onValueChange = {newUsername ->
-                                            loginViewModel.setLoginState(LoginReq(username = newUsername, loginViewModel.loginState.value.password))
-                                            },
-                            placeholder = {Text("Username")}
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        OutlinedTextField(value = loginViewModel.loginState.value.password,
-                            onValueChange = {newPassword->
-                                            loginViewModel.setLoginState(LoginReq(loginViewModel.loginState.value.username, password = newPassword))
-                                            },
-                            placeholder = {Text("Password")},
-                            visualTransformation = PasswordVisualTransformation(),
-                            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password)
-
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Button(onClick = { }) {
-                            Text("Login")
-                        }
-                        Spacer(modifier = Modifier.height(16.dp))
+                    ModalNavigationDrawer(
+                        drawerState = DrawerState(initialValue = DrawerValue.Open),
+                        modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding),
+                        drawerContent = {
+                            ModalDrawerSheet {
+                                Spacer(modifier = Modifier.height(16.dp))
+                                NavigationDrawerItem(
+                                    label = { Text(text = "Categories") },
+                                    selected = true,
+                                    onClick = { /*TODO*/ },
+                                    icon = { Icons.Filled.Home})
+                            }
+                    }) {
 
                     }
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun Greetings(name: String, modifier: Modifier = Modifier) {
-    Column(
-        modifier = Modifier.fillMaxSize()
-        ,verticalArrangement = Arrangement.Center
-        ,horizontalAlignment = Alignment.CenterHorizontally)
-    {
-        Text(
-            text = "Hello $name!"
-        )
-        Button(onClick = { Log.d("juuh", "nappi")}) {
-           Text("paina")
         }
     }
 }
