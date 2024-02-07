@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -58,7 +60,10 @@ fun LoginScreen() {
                     onValueChange = { newUsername ->
                         loginViewModel.setUsername(newUsername)
                     },
-                    placeholder = { Text("Username") }
+                    placeholder = { Text(stringResource(R.string.username)) },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(0.75f)
+
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 OutlinedTextField(
@@ -66,6 +71,8 @@ fun LoginScreen() {
                     onValueChange = { newPassword ->
                         loginViewModel.setPassword(newPassword)
                     },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(0.75f),
                     placeholder = { Text(stringResource(R.string.password)) },
                     //Changes the visibility of the password
                     visualTransformation = if (isPasswordVisible) VisualTransformation.None
@@ -90,7 +97,7 @@ fun LoginScreen() {
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(onClick = { loginViewModel.login() }) {
-                    Text("Login")
+                    Text(stringResource(R.string.login))
                 }
             }
         }
