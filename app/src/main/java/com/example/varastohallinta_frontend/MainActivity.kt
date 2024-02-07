@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerState
@@ -35,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.varastohallinta_frontend.ui.theme.Varastohallinta_frontendTheme
 
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,26 +47,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ModalNavigationDrawer(
-                        drawerState = DrawerState(initialValue = DrawerValue.Open),
-                        modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding),
-                        drawerContent = {
-                            ModalDrawerSheet {
-                                Spacer(modifier = Modifier.height(16.dp))
-                                NavigationDrawerItem(
-                                    label = { Text(text = "Categories") },
-                                    selected = true,
-                                    onClick = { /*TODO*/ },
-                                    icon = {
-                                        Icon(
-                                            imageVector = Icons.Filled.Home,
-                                            contentDescription = "Home Icon")
-                                    }
-                                )
-                            }
-                    }) {}
+                    LoginScreen()
                 }
             }
         }
     }
 }
+
