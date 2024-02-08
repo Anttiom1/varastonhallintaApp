@@ -1,9 +1,11 @@
-package com.example.varastohallinta_frontend
+package com.example.varastohallinta_frontend.viewmodel
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.varastohallinta_frontend.model.LoginRes
+import com.example.varastohallinta_frontend.model.LoginState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

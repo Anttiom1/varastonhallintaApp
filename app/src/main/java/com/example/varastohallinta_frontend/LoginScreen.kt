@@ -7,11 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -33,10 +29,10 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import kotlinx.coroutines.yield
+import com.example.varastohallinta_frontend.viewmodel.LoginViewModel
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(onLoginClick: ()-> Unit) {
     val loginViewModel: LoginViewModel = viewModel()
     var isPasswordVisible by remember { mutableStateOf(false) }
     Box(modifier = Modifier.fillMaxSize()) {
@@ -96,7 +92,13 @@ fun LoginScreen() {
 
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = { loginViewModel.login() }) {
+                Button(
+                    enabled = loginViewModel.loginState.value.username != ""
+                            && loginViewModel.loginState.value.password != "",
+                    onClick = {
+                    loginViewModel.login()
+                    onLoginClick()
+                }) {
                     Text(stringResource(R.string.login))
                 }
             }

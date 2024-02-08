@@ -1,4 +1,4 @@
-package com.example.varastohallinta_frontend
+package com.example.varastohallinta_frontend.model
 //login request sent to backend rest API
 //model of mvvm
 data class LoginState(val username: String = "",

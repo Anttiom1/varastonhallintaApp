@@ -1,6 +1,7 @@
 package com.example.varastohallinta_frontend
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +16,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerState
@@ -28,14 +30,20 @@ import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.varastohallinta_frontend.ui.theme.Varastohallinta_frontendTheme
+import kotlinx.coroutines.launch
 
 
 class MainActivity : ComponentActivity() {
@@ -48,10 +56,65 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LoginScreen()
+                    val navController = rememberNavController()
+                    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+                    val scope = rememberCoroutineScope()
+
+                    ModalNavigationDrawer(
+                        drawerState = drawerState,
+                        modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding),
+                        drawerContent = {
+                            ModalDrawerSheet {
+                                Spacer(modifier = Modifier.height(16.dp))
+                                NavigationDrawerItem(
+                                    label = { Text(text = "Home") },
+                                    selected = false,
+                                    onClick = { /*TODO*/ },
+                                    icon = {
+                                        Icon(
+                                            imageVector = Icons.Filled.Home,
+                                            contentDescription = "Home Icon")
+                                    }
+                                )
+                                Spacer(modifier = Modifier.height(16.dp))
+                                NavigationDrawerItem(
+                                    label = { Text(text = "Categories") },
+                                    selected = false,
+                                    onClick = { navController.navigate("categoriesScreen")
+                                              scope.launch { drawerState.close() }},
+                                    icon = {
+                                        Icon(
+                                            imageVector = Icons.Filled.List,
+                                            contentDescription = "Categories Icon")
+                                    }
+                                )
+                                Spacer(modifier = Modifier.height(16.dp))
+                                NavigationDrawerItem(
+                                    label = { Text(text = "Logout") },
+                                    selected = false,
+                                    onClick = { navController.navigate("loginScreen")
+                                              scope.launch { drawerState.close() }},
+                                    icon = {
+                                        Icon(
+                                            imageVector = Icons.Filled.Lock,
+                                            contentDescription = "login Icon")
+                                    }
+                                )
+                            }
+                        }) {
+
+                        //Navhost
+                        NavHost(navController = navController, startDestination = "categoriesScreen"){
+                            composable(route="loginScreen"){
+                                LoginScreen(onLoginClick = {navController.navigate("categoriesScreen")})
+                            }
+                            composable(route="categoriesScreen"){
+                                CategoriesScreen(onMenuClick = { scope.launch { drawerState.open() } })
+                            }
+                        }
+                    }
+                }
                 }
             }
         }
     }
-}
-
