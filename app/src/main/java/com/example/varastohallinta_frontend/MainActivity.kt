@@ -35,6 +35,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -61,6 +63,7 @@ class MainActivity : ComponentActivity() {
                     val scope = rememberCoroutineScope()
 
                     ModalNavigationDrawer(
+                        gesturesEnabled = true,
                         drawerState = drawerState,
                         modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding),
                         drawerContent = {
@@ -90,6 +93,18 @@ class MainActivity : ComponentActivity() {
                                 )
                                 Spacer(modifier = Modifier.height(16.dp))
                                 NavigationDrawerItem(
+                                    label = { Text(text = "Settings") },
+                                    selected = false,
+                                    onClick = { navController.navigate("settingsScreen")
+                                        scope.launch { drawerState.close() }},
+                                    icon = {
+                                        Icon(
+                                            imageVector = ImageVector.vectorResource(R.drawable.baseline_settings_24),
+                                            contentDescription = "Settings icon")
+                                    }
+                                )
+                                Spacer(modifier = Modifier.height(16.dp))
+                                NavigationDrawerItem(
                                     label = { Text(text = "Logout") },
                                     selected = false,
                                     onClick = { navController.navigate("loginScreen")
@@ -97,20 +112,24 @@ class MainActivity : ComponentActivity() {
                                     icon = {
                                         Icon(
                                             imageVector = Icons.Filled.Lock,
-                                            contentDescription = "login Icon")
+                                            contentDescription = "Login Icon")
                                     }
                                 )
                             }
                         }) {
 
                         //Navhost
-                        NavHost(navController = navController, startDestination = "categoriesScreen"){
+                        NavHost(navController = navController, startDestination = "loginScreen"){
                             composable(route="loginScreen"){
                                 LoginScreen(onLoginClick = {navController.navigate("categoriesScreen")})
                             }
                             composable(route="categoriesScreen"){
                                 CategoriesScreen(onMenuClick = { scope.launch { drawerState.open() } })
                             }
+                            composable(route="settingsScreen"){
+                                SettingsScreen(onMenuClick = { scope.launch { drawerState.open() } })
+                            }
+
                         }
                     }
                 }
