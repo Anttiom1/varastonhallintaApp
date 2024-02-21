@@ -123,12 +123,22 @@ class MainActivity : ComponentActivity() {
                             composable(route="loginScreen"){
                                 LoginScreen(onLoginClick = {navController.navigate("categoriesScreen")})
                             }
-                            composable(route="categoriesScreen"){
-                                CategoriesScreen(onMenuClick = { scope.launch { drawerState.open() } })
-                            }
                             composable(route="settingsScreen"){
                                 SettingsScreen(onMenuClick = { scope.launch { drawerState.open() } })
                             }
+                            composable("categoriesScreen") {
+                                CategoriesScreen(onMenuClick = {
+                                    scope.launch {
+                                        drawerState.open()
+                                    }
+                                }, gotoCategoryEdit = {
+                                    navController.navigate("categoryEditScreen/${it.id}")
+                                })
+                            }
+                            composable("categoryEditScreen/{categoryId}") {
+                                CategoryEditScreen()
+                            }
+
 
                         }
                     }
