@@ -1,9 +1,18 @@
 package com.example.varastohallinta_frontend
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.varastohallinta_frontend.viewmodel.CategoryEditViewModel
 
 @Composable
 fun CategoryEditScreen() {
-    Text("KategoryEditScreen")
+    val vm: CategoryEditViewModel = viewModel()
+
+    Box(modifier = Modifier.fillMaxSize()){
+
+    }
 }

@@ -132,14 +132,12 @@ class MainActivity : ComponentActivity() {
                                         drawerState.open()
                                     }
                                 }, gotoCategoryEdit = {
-                                    navController.navigate("categoryEditScreen/${it.id}")
+                                    navController.navigate("categoryEditScreen/${it.categoryId}")
                                 })
                             }
                             composable("categoryEditScreen/{categoryId}") {
                                 CategoryEditScreen()
                             }
-
-
                         }
                     }
                 }

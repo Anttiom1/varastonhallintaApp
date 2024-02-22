@@ -29,30 +29,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.varastohallinta_frontend.model.CategoryItem
 import com.example.varastohallinta_frontend.viewmodel.CategoriesViewModel
 
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview
-@Composable
-fun CategoriesScreenPreview() {
-    Scaffold(topBar = {
-        TopAppBar(
-            navigationIcon = {
-                IconButton(onClick = {
-
-                }) {
-                    Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
-                }
-            },
-            title = { Text(text = "Categories") })
-    }) {
-        LazyColumn(modifier = Modifier.padding(it)) {
-            items(listOf(CategoryItem(id = 1, name = "Kategoria 1"))) {
-                Text(it.name)
-            }
-        }
-    }
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoriesScreen(onMenuClick: () -> Unit, gotoCategoryEdit: (CategoryItem) -> Unit) {
@@ -82,6 +58,9 @@ fun CategoriesScreen(onMenuClick: () -> Unit, gotoCategoryEdit: (CategoryItem) -
                     )
                 )
 
+                categoriesVm.categoriesState.value.error != null ->
+                    Text(text = "error: ${categoriesVm.categoriesState.value.error}")
+
                 else -> LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(categoriesVm.categoriesState.value.list) {
                         Column(
@@ -95,7 +74,7 @@ fun CategoriesScreen(onMenuClick: () -> Unit, gotoCategoryEdit: (CategoryItem) -
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text("Kuva tähän")
-                                Text(it.name, style = MaterialTheme.typography.headlineLarge)
+                                Text(it.categoryName, style = MaterialTheme.typography.headlineLarge)
 
                             }
                             Row(
