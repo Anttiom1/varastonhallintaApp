@@ -45,6 +45,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.varastohallinta_frontend.ui.theme.Varastohallinta_frontendTheme
+import com.example.varastohallinta_frontend.viewmodel.LoginViewModel
+import com.example.varastohallinta_frontend.viewmodel.SettingsViewModel
 import kotlinx.coroutines.launch
 
 
@@ -52,7 +54,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Varastohallinta_frontendTheme {
+            val settingsViewModel : SettingsViewModel = viewModel()
+            Varastohallinta_frontendTheme(darkTheme = settingsViewModel.userSettingsState.value.darkMode) {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -115,6 +118,7 @@ class MainActivity : ComponentActivity() {
                                             contentDescription = "Login Icon")
                                     }
                                 )
+                                Spacer(modifier = Modifier.height(16.dp))
                             }
                         }) {
 
@@ -124,7 +128,9 @@ class MainActivity : ComponentActivity() {
                                 LoginScreen(onLoginClick = {navController.navigate("categoriesScreen")})
                             }
                             composable(route="settingsScreen"){
-                                SettingsScreen(onMenuClick = { scope.launch { drawerState.open() } })
+                                SettingsScreen(onMenuClick = { scope.launch { drawerState.open() } },
+                                    //Toggle dark mode
+                                    onDarkModeClicked = {settingsViewModel.setDarkMode(it) })
                             }
                             composable("categoriesScreen") {
                                 CategoriesScreen(onMenuClick = {
