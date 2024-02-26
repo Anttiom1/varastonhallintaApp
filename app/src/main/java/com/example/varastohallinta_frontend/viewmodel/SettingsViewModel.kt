@@ -12,4 +12,8 @@ class SettingsViewModel : ViewModel() {
     fun setDarkMode(darkMode : Boolean){
         _userSettingsState.value = _userSettingsState.value.copy(darkMode = darkMode)
     }
+
+    fun setTestMode(testMode : Boolean){
+        _userSettingsState.value = _userSettingsState.value.copy(testMode = testMode)
+    }
 }

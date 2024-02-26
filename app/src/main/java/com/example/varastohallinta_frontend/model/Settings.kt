@@ -1,3 +1,3 @@
 package com.example.varastohallinta_frontend.model
 
-data class userSettings(val darkMode : Boolean = false)
+data class userSettings(val darkMode : Boolean = false, val testMode : Boolean = false)

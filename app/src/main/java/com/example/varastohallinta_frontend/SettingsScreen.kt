@@ -37,13 +37,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.varastohallinta_frontend.model.userSettings
 import com.example.varastohallinta_frontend.viewmodel.SettingsViewModel
 import java.time.format.TextStyle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(onMenuClick: () -> Unit, onDarkModeClicked: (Boolean) -> Unit) {
-    val settingsViewModel: SettingsViewModel = viewModel()
+fun SettingsScreen(
+    settingsViewModel: SettingsViewModel,
+    onMenuClick: () -> Unit,
+    onDarkModeClicked: (Boolean) -> Unit,
+    onTestClick: (Boolean) -> Unit ){
 
     Scaffold(topBar = {
         TopAppBar(
@@ -64,16 +68,20 @@ fun SettingsScreen(onMenuClick: () -> Unit, onDarkModeClicked: (Boolean) -> Unit
                 .padding(it),
             color = MaterialTheme.colorScheme.background
         ) {
-            MultipleSwitchesColumn(settingsViewModel, onDarkModeClicked)
+            MultipleSwitchesColumn(settingsViewModel, onDarkModeClicked, onTestClick)
         }
     }
 }
 
 @Composable
-fun MultipleSwitchesColumn(settingsViewModel: SettingsViewModel, onDarkModeClicked: (Boolean) -> Unit) {
+fun MultipleSwitchesColumn(settingsViewModel: SettingsViewModel,
+                           onDarkModeClicked: (Boolean) -> Unit,
+                           onTestClick: (Boolean) -> Unit) {
     // Create a list of switch items
+
     val switchItems = listOf(
-        SwitchItem("Dark Mode"),
+        SwitchItem("Dark Mode", settingsViewModel, onDarkModeClicked, checked = settingsViewModel.userSettingsState.value.darkMode),
+        SwitchItem("Testi Mode", settingsViewModel, onTestClick, checked = settingsViewModel.userSettingsState.value.testMode)
 
         // Add more items as needed
     )
@@ -86,13 +94,13 @@ fun MultipleSwitchesColumn(settingsViewModel: SettingsViewModel, onDarkModeClick
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         switchItems.forEach { switchItem ->
-            SwitchItemRow(switchItem, settingsViewModel, onDarkModeClicked)
+            SwitchItemRow(switchItem)
         }
     }
 }
 
 @Composable
-fun SwitchItemRow(switchItem: SwitchItem, settingsViewModel: SettingsViewModel, onDarkModeClicked: (Boolean) -> Unit) {
+fun SwitchItemRow(switchItem: SwitchItem) {
 
     Row(
         modifier = Modifier
@@ -109,14 +117,13 @@ fun SwitchItemRow(switchItem: SwitchItem, settingsViewModel: SettingsViewModel, 
 
         // Switch
         Switch(
-            checked = settingsViewModel.userSettingsState.value.darkMode,
+            checked = switchItem.checked,
             onCheckedChange = {
-                settingsViewModel.setDarkMode(it)
-                onDarkModeClicked(it)
+                switchItem.onSwitchToggle(it)
             },
             modifier = Modifier.padding(start = 16.dp)
         )
     }
 }
 
-data class SwitchItem(val title: String)
+data class SwitchItem(val title: String, val settingsViewModel: SettingsViewModel, val onSwitchToggle : (Boolean) -> Unit, val checked : Boolean)

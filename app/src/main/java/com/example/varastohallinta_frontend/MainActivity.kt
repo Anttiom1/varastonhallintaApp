@@ -127,10 +127,13 @@ class MainActivity : ComponentActivity() {
                             composable(route="loginScreen"){
                                 LoginScreen(onLoginClick = {navController.navigate("categoriesScreen")})
                             }
-                            composable(route="settingsScreen"){
-                                SettingsScreen(onMenuClick = { scope.launch { drawerState.open() } },
+                            composable(route="settingsScreen", ){
+                                SettingsScreen(
+                                    settingsViewModel = settingsViewModel,
+                                    onMenuClick = { scope.launch { drawerState.open() } },
                                     //Toggle dark mode
-                                    onDarkModeClicked = {settingsViewModel.setDarkMode(it) })
+                                    onDarkModeClicked = {settingsViewModel.setDarkMode(it)},
+                                    onTestClick = {settingsViewModel.setTestMode(it)})
                             }
                             composable("categoriesScreen") {
                                 CategoriesScreen(onMenuClick = {
