@@ -26,9 +26,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
 import com.example.varastohallinta_frontend.model.CategoryItem
 import com.example.varastohallinta_frontend.viewmodel.CategoriesViewModel
+import java.time.LocalDateTime
 
+
+@Composable
+fun ItemImage() {
+    AsyncImage(
+        model = "https://picsum.photos/seed/${LocalDateTime.now()}/200",
+        contentDescription = null,
+    )
+}
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoriesScreen(onMenuClick: () -> Unit, gotoCategoryEdit: (CategoryItem) -> Unit) {
@@ -73,7 +83,7 @@ fun CategoriesScreen(onMenuClick: () -> Unit, gotoCategoryEdit: (CategoryItem) -
                                     .fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
-                                Text("Kuva tähän")
+                                ItemImage()
                                 Text(it.categoryName, style = MaterialTheme.typography.headlineLarge)
 
                             }
