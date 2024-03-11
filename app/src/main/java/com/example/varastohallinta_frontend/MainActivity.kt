@@ -127,7 +127,7 @@ class MainActivity : ComponentActivity() {
                             composable(route="loginScreen"){
                                 LoginScreen(onLoginClick = {navController.navigate("categoriesScreen")})
                             }
-                            composable(route="settingsScreen", ){
+                            composable(route="settingsScreen" ){
                                 SettingsScreen(
                                     settingsViewModel = settingsViewModel,
                                     onMenuClick = { scope.launch { drawerState.open() } },

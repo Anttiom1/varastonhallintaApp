@@ -16,11 +16,16 @@ class CategoryEditViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
     private val _categoryState = mutableStateOf(CategoryState())
     val categoryState: State<CategoryState> = _categoryState
 
+
+    fun setDone(done: Boolean){
+        _categoryState.value = _categoryState.value.copy(done=done)
+    }
+
     fun setName(newName: String) {
         _categoryState.value = _categoryState.value.copy(categoryName = newName)
     }
 
-    fun editCategory(goToCategories: () -> Unit) {
+    fun editCategory() {
         viewModelScope.launch {
             try {
 
@@ -31,7 +36,7 @@ class CategoryEditViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
                     )
                 )
 
-                goToCategories()
+                setDone(true)
 
 
             } catch (e: Exception) {

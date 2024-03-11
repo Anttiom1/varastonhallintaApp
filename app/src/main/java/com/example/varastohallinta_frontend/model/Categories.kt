@@ -11,6 +11,12 @@ data class CategoriesState(
 data class CategoryState(
     val categoryName: String = "",
     val loading: Boolean = false,
+    val error: String? = null,
+    val done: Boolean = false
+)
+
+data class CategoryDeleteState(
+    val id: Int = 0,
     val error: String? = null
 )
 

@@ -13,6 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -20,6 +21,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,6 +41,24 @@ fun ItemImage() {
         contentDescription = null,
     )
 }
+
+@Composable
+fun ConfirmCategoryDelete(onDismiss: () -> Unit, onConfirm: () -> Unit){
+    AlertDialog(onDismissRequest = {  },
+        dismissButton = { TextButton(onClick = { onDismiss() }) {
+            Text(text = "Cancel")
+        }},
+        confirmButton = { TextButton(onClick = { onConfirm() }) {
+            Text(text = "Confirm")
+        } },
+        icon = { Icon(
+            imageVector = Icons.Default.Delete,
+            contentDescription = "Delete category"
+    )}, text = {Text("Are you sure you want to delete this category?")},
+        title = {Text("Delete Category") },
+    )
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoriesScreen(onMenuClick: () -> Unit, gotoCategoryEdit: (CategoryItem) -> Unit) {
@@ -71,6 +91,10 @@ fun CategoriesScreen(onMenuClick: () -> Unit, gotoCategoryEdit: (CategoryItem) -
                 categoriesVm.categoriesState.value.error != null ->
                     Text(text = "error: ${categoriesVm.categoriesState.value.error}")
 
+                categoriesVm.categoryDeleteState.value.id > 0 -> ConfirmCategoryDelete(
+                    onDismiss = { categoriesVm.setDeletableCategoryId(0) },
+                    onConfirm = {categoriesVm.deleteCategory()})
+
                 else -> LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(categoriesVm.categoriesState.value.list) {
                         Column(
@@ -93,7 +117,7 @@ fun CategoriesScreen(onMenuClick: () -> Unit, gotoCategoryEdit: (CategoryItem) -
                                     .fillMaxWidth(),
                                 horizontalArrangement = Arrangement.End
                             ) {
-                                IconButton(onClick = { categoriesVm.deleteCategory(it) }) {
+                                IconButton(onClick = { categoriesVm.setDeletableCategoryId(it.categoryId) }) {
                                     Icon(
                                         imageVector = Icons.Default.Delete,
                                         contentDescription = "Delete"

@@ -17,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -27,6 +28,13 @@ import com.example.varastohallinta_frontend.viewmodel.CategoryEditViewModel
 @Composable
 fun CategoryEditScreen(goToCategories: () -> Unit, goBack: () -> Unit) {
     val vm: CategoryEditViewModel = viewModel()
+    
+    LaunchedEffect(key1 = vm.categoryState.value.done){
+        if(vm.categoryState.value.done){
+            vm.setDone(false)
+            goToCategories()
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -59,7 +67,8 @@ fun CategoryEditScreen(goToCategories: () -> Unit, goBack: () -> Unit) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Row {
                         Button(onClick = {
-                            vm.editCategory(goToCategories)
+                            vm.editCategory()
+                            
                         }) {
                             Text(text = "Edit")
                         }
