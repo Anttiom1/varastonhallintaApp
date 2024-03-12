@@ -1,5 +1,6 @@
 package com.example.varastohallinta_frontend
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,8 +25,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
@@ -43,7 +47,13 @@ fun ItemImage() {
 }
 
 @Composable
-fun ConfirmCategoryDelete(onDismiss: () -> Unit, onConfirm: () -> Unit){
+fun ConfirmCategoryDelete(error: String?, onDismiss: () -> Unit, onConfirm: () -> Unit){
+    val context = LocalContext.current
+    LaunchedEffect(key1 = error){
+        error?.let{
+            Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+        }
+    }
     AlertDialog(onDismissRequest = {  },
         dismissButton = { TextButton(onClick = { onDismiss() }) {
             Text(text = "Cancel")
@@ -70,10 +80,10 @@ fun CategoriesScreen(onMenuClick: () -> Unit, gotoCategoryEdit: (CategoryItem) -
                 IconButton(onClick = {
                     onMenuClick()
                 }) {
-                    Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
+                    Icon(imageVector = Icons.Default.Menu, contentDescription = stringResource(id = R.string.menu))
                 }
             },
-            title = { Text(text = "Categories") })
+            title = { Text(text = stringResource(id = R.string.categories_title)) })
     }) {
 
         Box(
@@ -89,9 +99,10 @@ fun CategoriesScreen(onMenuClick: () -> Unit, gotoCategoryEdit: (CategoryItem) -
                 )
 
                 categoriesVm.categoriesState.value.error != null ->
-                    Text(text = "error: ${categoriesVm.categoriesState.value.error}")
+                    Text(text = stringResource(id = R.string.error)+": ${categoriesVm.categoriesState.value.error}")
 
                 categoriesVm.categoryDeleteState.value.id > 0 -> ConfirmCategoryDelete(
+                    error = categoriesVm.categoryDeleteState.value.error,
                     onDismiss = { categoriesVm.setDeletableCategoryId(0) },
                     onConfirm = {categoriesVm.deleteCategory()})
 
@@ -120,13 +131,13 @@ fun CategoriesScreen(onMenuClick: () -> Unit, gotoCategoryEdit: (CategoryItem) -
                                 IconButton(onClick = { categoriesVm.setDeletableCategoryId(it.categoryId) }) {
                                     Icon(
                                         imageVector = Icons.Default.Delete,
-                                        contentDescription = "Delete"
+                                        contentDescription = stringResource(id = R.string.delete)
                                     )
                                 }
                                 IconButton(onClick = { gotoCategoryEdit(it) }) {
                                     Icon(
                                         imageVector = Icons.Default.Edit,
-                                        contentDescription = "Edit"
+                                        contentDescription = stringResource(id = R.string.edit)
                                     )
                                 }
                             }

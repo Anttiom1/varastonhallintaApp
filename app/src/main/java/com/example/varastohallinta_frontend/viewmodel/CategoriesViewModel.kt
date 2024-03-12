@@ -43,6 +43,7 @@ class CategoriesViewModel : ViewModel() {
                 _categoriesState.value = _categoriesState.value.copy(list = categories)
             } catch(e: Exception) {
                 Log.d("asd", e.toString())
+                _categoryDeleteState.value = _categoryDeleteState.value.copy(error = e.toString())
             }
         }
     }
@@ -63,6 +64,7 @@ class CategoriesViewModel : ViewModel() {
                 _categoriesState.value = _categoriesState.value.copy(error = e.toString())
             } finally {
                 _categoriesState.value = _categoriesState.value.copy(loading = false)
+
             }
         }
     }

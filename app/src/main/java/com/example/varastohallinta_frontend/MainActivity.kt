@@ -36,6 +36,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -84,7 +85,7 @@ class MainActivity : ComponentActivity() {
                                 )
                                 Spacer(modifier = Modifier.height(16.dp))
                                 NavigationDrawerItem(
-                                    label = { Text(text = "Categories") },
+                                    label = { Text(text = stringResource(id = R.string.categories_title)) },
                                     selected = false,
                                     onClick = { navController.navigate("categoriesScreen")
                                               scope.launch { drawerState.close() }},
@@ -96,7 +97,7 @@ class MainActivity : ComponentActivity() {
                                 )
                                 Spacer(modifier = Modifier.height(16.dp))
                                 NavigationDrawerItem(
-                                    label = { Text(text = "Settings") },
+                                    label = { Text(text = stringResource(id = R.string.settings)) },
                                     selected = false,
                                     onClick = { navController.navigate("settingsScreen")
                                         scope.launch { drawerState.close() }},

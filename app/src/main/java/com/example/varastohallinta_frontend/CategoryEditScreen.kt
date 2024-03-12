@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.varastohallinta_frontend.viewmodel.CategoryEditViewModel
@@ -53,7 +54,7 @@ fun CategoryEditScreen(goToCategories: () -> Unit, goBack: () -> Unit) {
                     Modifier.align(Alignment.Center)
                 )
 
-                vm.categoryState.value.error != null -> Text(text = "Virhe: ${vm.categoryState.value.error}")
+                vm.categoryState.value.error != null -> Text(text = stringResource(id = R.string.error) +": ${vm.categoryState.value.error}")
                 else -> Column(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
@@ -70,11 +71,11 @@ fun CategoryEditScreen(goToCategories: () -> Unit, goBack: () -> Unit) {
                             vm.editCategory()
                             
                         }) {
-                            Text(text = "Edit")
+                            Text(text = stringResource(id = R.string.edit))
                         }
                         Spacer(modifier = Modifier.width(8.dp))
                         Button(onClick = { goBack() }) {
-                            Text("Back")
+                            Text(stringResource(id = R.string.back))
                         }
                     }
                 }

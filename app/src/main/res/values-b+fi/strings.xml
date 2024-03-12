@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Varastohallinta_frontend</string>
+    <string name="show_password">Näytä salasanan</string>
+    <string name="hide_password">Piilota salasana</string>
+    <string name="password">Salasana</string>
+    <string name="username">Käyttäjänimi</string>
+    <string name="login">Kirjaudu</string>
+    <string name="categories_title">Kategoriat</string>
+    <string name="menu">Menu</string>
+    <string name="error">Virhe</string>
+    <string name="delete">Poista</string>
+    <string name="edit">Muokkaa</string>
+    <string name="back">Takaisin</string>
+    <string name="settings">Asetukset</string>
+    <string name="home">Koti</string>
+    <string name="logout">Kirjaudu ulos</string>
+</resources>
