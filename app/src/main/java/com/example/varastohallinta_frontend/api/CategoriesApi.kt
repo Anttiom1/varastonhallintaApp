@@ -1,5 +1,6 @@
 package com.example.varastohallinta_frontend.api
 
+import com.example.varastohallinta_frontend.model.AddCategoryReq
 import com.example.varastohallinta_frontend.model.CategoriesRes
 import com.example.varastohallinta_frontend.model.CategoryItem
 import com.example.varastohallinta_frontend.model.CategoryRes
@@ -7,6 +8,7 @@ import com.example.varastohallinta_frontend.model.UpdateCategoryReq
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
@@ -31,5 +33,10 @@ interface CategoriesApi {
 
     @DELETE("category/{categoryId}")
     suspend fun  removeCategory(@Path("categoryId") categoryId: Int)
+
+    @POST("category")
+    suspend fun addCategory(
+        @Body reqBody: AddCategoryReq
+    )
 
 }

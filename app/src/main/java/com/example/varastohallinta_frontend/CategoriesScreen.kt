@@ -1,25 +1,35 @@
 package com.example.varastohallinta_frontend
 
 import android.widget.Toast
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -28,9 +38,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.varastohallinta_frontend.model.CategoryItem
@@ -80,71 +93,84 @@ fun CategoriesScreen(onMenuClick: () -> Unit, gotoCategoryEdit: (CategoryItem) -
                 IconButton(onClick = {
                     onMenuClick()
                 }) {
-                    Icon(imageVector = Icons.Default.Menu, contentDescription = stringResource(id = R.string.menu))
+                    Icon(
+                        imageVector = Icons.Default.Menu,
+                        contentDescription = stringResource(id = R.string.menu)
+                    )
                 }
             },
             title = { Text(text = stringResource(id = R.string.categories_title)) })
     }) {
-
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(it)
-        ) {
-            when {
-                categoriesVm.categoriesState.value.loading -> CircularProgressIndicator(
-                    modifier = Modifier.align(
-                        Alignment.Center
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it)
+            ) {
+                when {
+                    categoriesVm.categoriesState.value.loading -> CircularProgressIndicator(
+                        modifier = Modifier.align(
+                            Alignment.Center
+                        )
                     )
-                )
 
-                categoriesVm.categoriesState.value.error != null ->
-                    Text(text = stringResource(id = R.string.error)+": ${categoriesVm.categoriesState.value.error}")
+                    categoriesVm.categoriesState.value.error != null ->
+                        Text(text = stringResource(id = R.string.error) + ": ${categoriesVm.categoriesState.value.error}")
 
-                categoriesVm.categoryDeleteState.value.id > 0 -> ConfirmCategoryDelete(
-                    error = categoriesVm.categoryDeleteState.value.error,
-                    onDismiss = { categoriesVm.setDeletableCategoryId(0) },
-                    onConfirm = {categoriesVm.deleteCategory()})
-
-                else -> LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(categoriesVm.categoriesState.value.list) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                        ) {
-                            Row(
+                    categoriesVm.categoryDeleteState.value.id > 0 -> ConfirmCategoryDelete(
+                        error = categoriesVm.categoryDeleteState.value.error,
+                        onDismiss = { categoriesVm.setDeletableCategoryId(0) },
+                        onConfirm = { categoriesVm.deleteCategory() })
+                    
+                    else -> LazyColumn(modifier = Modifier.fillMaxSize()) {
+                        items(categoriesVm.categoriesState.value.list) {
+                            Column(
                                 modifier = Modifier
-
-                                    .fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween
+                                    .fillMaxWidth()
                             ) {
-                                ItemImage()
-                                Text(it.categoryName, style = MaterialTheme.typography.headlineLarge)
+                                Row(
+                                    modifier = Modifier
 
-                            }
-                            Row(
-                                modifier = Modifier
-
-                                    .fillMaxWidth(),
-                                horizontalArrangement = Arrangement.End
-                            ) {
-                                IconButton(onClick = { categoriesVm.setDeletableCategoryId(it.categoryId) }) {
-                                    Icon(
-                                        imageVector = Icons.Default.Delete,
-                                        contentDescription = stringResource(id = R.string.delete)
+                                        .fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    ItemImage()
+                                    Text(
+                                        it.categoryName,
+                                        style = MaterialTheme.typography.headlineLarge
                                     )
+
                                 }
-                                IconButton(onClick = { gotoCategoryEdit(it) }) {
-                                    Icon(
-                                        imageVector = Icons.Default.Edit,
-                                        contentDescription = stringResource(id = R.string.edit)
-                                    )
+                                Row(
+                                    modifier = Modifier
+
+                                        .fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.End
+                                ) {
+                                    IconButton(onClick = { categoriesVm.setDeletableCategoryId(it.categoryId) }) {
+                                        Icon(
+                                            imageVector = Icons.Default.Delete,
+                                            contentDescription = stringResource(id = R.string.delete)
+                                        )
+                                    }
+                                    IconButton(onClick = { gotoCategoryEdit(it) }) {
+                                        Icon(
+                                            imageVector = Icons.Default.Edit,
+                                            contentDescription = stringResource(id = R.string.edit)
+                                        )
+                                    }
                                 }
                             }
                         }
                     }
                 }
+                IconButton(onClick = { /*TODO*/ },
+                    modifier = Modifier
+                        .padding(24.dp)
+                        .align(Alignment.BottomCenter)) {
+                    Icon(imageVector = Icons.Filled.AddCircle, contentDescription = "Add", tint = Color.Gray, modifier = Modifier.fillMaxSize())
+                    
+                }
             }
         }
     }
-}
+

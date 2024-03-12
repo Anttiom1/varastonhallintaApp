@@ -34,3 +34,8 @@ data class CategoryRes(val category: CategoryItem)
 data class UpdateCategoryReq(
     @SerializedName("category_name")
     val categoryName: String)
+
+data class AddCategoryReq(
+    @SerializedName("category_name")
+    val categoryName: String
+)
