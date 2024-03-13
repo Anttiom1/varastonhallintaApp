@@ -6,6 +6,7 @@ data class RentalItemsState(
     val list: List<RentalItem> = emptyList(),
     val loading: Boolean = false,
     val error: String? = null
+
 )
 
 data class RentalItemState(
@@ -18,6 +19,12 @@ data class RentalItemState(
 data class RentalItemDeleteState(
     val id: Int = 0,
     val error: String? = null
+)
+
+
+data class RentalItemsByCategoryRes(
+    @SerializedName("items")
+    val list: List<RentalItem>
 )
 
 data class RentalItem(

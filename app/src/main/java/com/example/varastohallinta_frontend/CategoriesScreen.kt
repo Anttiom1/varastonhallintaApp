@@ -91,7 +91,9 @@ fun ConfirmCategoryDelete(error: String?, onDismiss: () -> Unit, onConfirm: () -
 fun CategoriesScreen(
     onMenuClick: () -> Unit,
     gotoCategoryEdit: (CategoryItem) -> Unit,
-    gotoCategoryAdd: () -> Unit)
+    gotoCategoryAdd: () -> Unit,
+    gotoRentalItemScreen: (CategoryItem) -> Unit
+)
 {
     val categoriesVm: CategoriesViewModel = viewModel()
 
@@ -145,6 +147,7 @@ fun CategoriesScreen(
                                 Row(
                                     modifier = Modifier
                                         .clickable {
+                                            gotoRentalItemScreen(it)
                                             Log.d("juuh", it.categoryId.toString()) }
                                         .fillMaxWidth(),
 
@@ -159,7 +162,6 @@ fun CategoriesScreen(
                                 }
                                 Row(
                                     modifier = Modifier
-
                                         .fillMaxWidth(),
                                     horizontalArrangement = Arrangement.End
                                 ) {

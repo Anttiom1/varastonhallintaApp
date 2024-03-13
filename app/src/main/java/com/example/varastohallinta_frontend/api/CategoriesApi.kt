@@ -2,8 +2,10 @@ package com.example.varastohallinta_frontend.api
 
 import com.example.varastohallinta_frontend.model.AddCategoryReq
 import com.example.varastohallinta_frontend.model.CategoriesRes
+
 import com.example.varastohallinta_frontend.model.CategoryItem
 import com.example.varastohallinta_frontend.model.CategoryRes
+import com.example.varastohallinta_frontend.model.RentalItemsByCategoryRes
 import com.example.varastohallinta_frontend.model.UpdateCategoryReq
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -38,5 +40,7 @@ interface CategoriesApi {
     suspend fun addCategory(
         @Body reqBody: AddCategoryReq
     )
+
+
 
 }

@@ -145,7 +145,10 @@ class MainActivity : ComponentActivity() {
                                     navController.navigate("categoryEditScreen/${it.categoryId}")
                                 }, gotoCategoryAdd = {
                                     navController.navigate("categoryAddScreen")
-                                })
+                                },
+                                    gotoRentalItemScreen = {
+                                        navController.navigate("rentalItemScreen/${it.categoryId}/items")
+                                    })
                             }
                             composable("categoryEditScreen/{categoryId}") {
                                 CategoryEditScreen(goToCategories = {
@@ -159,6 +162,13 @@ class MainActivity : ComponentActivity() {
                                     navController.navigateUp()
                                 }, goToCategories = {
                                     navController.navigate("categoriesScreen")
+                                })
+                            }
+                            composable("rentalItemScreen/{categoryId}/items"){
+                                RentalItemScreen(onMenuClick = {
+                                    scope.launch {
+                                        drawerState.open()
+                                    }
                                 })
                             }
                         }
