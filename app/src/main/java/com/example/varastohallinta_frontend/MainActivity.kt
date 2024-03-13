@@ -143,6 +143,8 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }, gotoCategoryEdit = {
                                     navController.navigate("categoryEditScreen/${it.categoryId}")
+                                }, gotoCategoryAdd = {
+                                    navController.navigate("categoryAddScreen")
                                 })
                             }
                             composable("categoryEditScreen/{categoryId}") {
@@ -150,6 +152,13 @@ class MainActivity : ComponentActivity() {
                                     navController.navigate("categoriesScreen")
                                 }, goBack = {
                                     navController.navigateUp()
+                                })
+                            }
+                            composable("categoryAddScreen"){
+                                CategoryAddScreen(goBack = {
+                                    navController.navigateUp()
+                                }, goToCategories = {
+                                    navController.navigate("categoriesScreen")
                                 })
                             }
                         }

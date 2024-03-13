@@ -34,7 +34,7 @@ interface CategoriesApi {
     @DELETE("category/{categoryId}")
     suspend fun  removeCategory(@Path("categoryId") categoryId: Int)
 
-    @POST("category")
+    @POST("category/")
     suspend fun addCategory(
         @Body reqBody: AddCategoryReq
     )

@@ -40,6 +40,9 @@ class CategoriesViewModel : ViewModel() {
                     it.categoryId != _categoryDeleteState.value.id
                 }
 
+                //Sets id to 0 so that the delete screen goes away
+                setDeletableCategoryId(0)
+
                 _categoriesState.value = _categoriesState.value.copy(list = categories)
             } catch(e: Exception) {
                 Log.d("asd", e.toString())
@@ -56,7 +59,7 @@ class CategoriesViewModel : ViewModel() {
                 val categoriesRes = categoriesService.getCategories()
                 _categoriesState.value =
                     _categoriesState.value.copy(list = categoriesRes.categories)
-                Log.d("asd", "fetching catgories done")
+                Log.d("asd", "fetching categories done")
                 //_categoriesState.value = _categoriesState.value.copy(loading = false)
             } catch (e: Exception) {
                 Log.d("asd", e.toString())

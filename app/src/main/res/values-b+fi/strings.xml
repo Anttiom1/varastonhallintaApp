@@ -14,4 +14,5 @@
     <string name="settings">Asetukset</string>
     <string name="home">Koti</string>
     <string name="logout">Kirjaudu ulos</string>
+    <string name="add_category">Lisää kategoria</string>
 </resources>

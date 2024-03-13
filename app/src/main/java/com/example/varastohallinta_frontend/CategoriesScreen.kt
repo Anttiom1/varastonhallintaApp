@@ -26,6 +26,8 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -84,10 +86,20 @@ fun ConfirmCategoryDelete(error: String?, onDismiss: () -> Unit, onConfirm: () -
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CategoriesScreen(onMenuClick: () -> Unit, gotoCategoryEdit: (CategoryItem) -> Unit) {
+fun CategoriesScreen(
+    onMenuClick: () -> Unit,
+    gotoCategoryEdit: (CategoryItem) -> Unit,
+    gotoCategoryAdd: () -> Unit)
+{
     val categoriesVm: CategoriesViewModel = viewModel()
 
-    Scaffold(topBar = {
+    Scaffold(
+        floatingActionButtonPosition = FabPosition.Center,
+        floatingActionButton = {FloatingActionButton(onClick = { gotoCategoryAdd()}) {
+            Icon(imageVector = Icons.Filled.Add, contentDescription = "add") }
+
+        },
+        topBar = {
         TopAppBar(
             navigationIcon = {
                 IconButton(onClick = {
@@ -116,6 +128,7 @@ fun CategoriesScreen(onMenuClick: () -> Unit, gotoCategoryEdit: (CategoryItem) -
                     categoriesVm.categoriesState.value.error != null ->
                         Text(text = stringResource(id = R.string.error) + ": ${categoriesVm.categoriesState.value.error}")
 
+                    //Opens the delete screen prompt when selected id is not 0
                     categoriesVm.categoryDeleteState.value.id > 0 -> ConfirmCategoryDelete(
                         error = categoriesVm.categoryDeleteState.value.error,
                         onDismiss = { categoriesVm.setDeletableCategoryId(0) },
@@ -163,14 +176,9 @@ fun CategoriesScreen(onMenuClick: () -> Unit, gotoCategoryEdit: (CategoryItem) -
                         }
                     }
                 }
-                IconButton(onClick = { /*TODO*/ },
-                    modifier = Modifier
-                        .padding(24.dp)
-                        .align(Alignment.BottomCenter)) {
-                    Icon(imageVector = Icons.Filled.AddCircle, contentDescription = "Add", tint = Color.Gray, modifier = Modifier.fillMaxSize())
-                    
+
                 }
             }
         }
-    }
+
 
