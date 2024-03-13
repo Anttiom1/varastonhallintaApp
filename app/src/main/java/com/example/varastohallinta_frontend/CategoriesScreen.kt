@@ -1,8 +1,10 @@
 package com.example.varastohallinta_frontend
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -142,8 +144,10 @@ fun CategoriesScreen(
                             ) {
                                 Row(
                                     modifier = Modifier
-
+                                        .clickable {
+                                            Log.d("juuh", it.categoryId.toString()) }
                                         .fillMaxWidth(),
+
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
                                     ItemImage()

@@ -40,10 +40,11 @@ class CategoriesViewModel : ViewModel() {
                     it.categoryId != _categoryDeleteState.value.id
                 }
 
+                _categoriesState.value = _categoriesState.value.copy(list = categories)
+
                 //Sets id to 0 so that the delete screen goes away
                 setDeletableCategoryId(0)
 
-                _categoriesState.value = _categoriesState.value.copy(list = categories)
             } catch(e: Exception) {
                 Log.d("asd", e.toString())
                 _categoryDeleteState.value = _categoryDeleteState.value.copy(error = e.toString())

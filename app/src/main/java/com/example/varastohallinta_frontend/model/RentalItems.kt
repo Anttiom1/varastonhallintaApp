@@ -1,0 +1,28 @@
+package com.example.varastohallinta_frontend.model
+
+import com.google.gson.annotations.SerializedName
+
+data class RentalItemsState(
+    val list: List<RentalItem> = emptyList(),
+    val loading: Boolean = false,
+    val error: String? = null
+)
+
+data class RentalItemState(
+    val rentalItemName: String = "",
+    val loading: Boolean,
+    val error: String?,
+    val done: Boolean = false
+)
+
+data class RentalItemDeleteState(
+    val id: Int = 0,
+    val error: String? = null
+)
+
+data class RentalItem(
+    @SerializedName("rental_item_id")
+    val rentalItemId: Int = 0,
+    @SerializedName("rental_item_name")
+    val rentalItemName: String = ""
+)
