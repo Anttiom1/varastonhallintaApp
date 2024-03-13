@@ -35,13 +35,15 @@ import com.example.varastohallinta_frontend.viewmodel.RentalItemViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RentalItemScreen(onMenuClick: () -> Unit){
+fun RentalItemScreen(onMenuClick: () -> Unit,
+                     gotoRentalItemAdd: () -> Unit
+){
     val rentalItemsVm : RentalItemViewModel = viewModel()
 
     Scaffold(
         floatingActionButtonPosition = FabPosition.Center,
         floatingActionButton = {
-            FloatingActionButton(onClick = { /*gotoCategoryAdd()*/}) {
+            FloatingActionButton(onClick = { gotoRentalItemAdd()}) {
             Icon(imageVector = Icons.Filled.Add, contentDescription = "add") }
 
         },
@@ -74,6 +76,7 @@ fun RentalItemScreen(onMenuClick: () -> Unit){
                 rentalItemsVm.rentalItemsState.value.error != null ->
                     Text(text = stringResource(id = R.string.error) + ": ${rentalItemsVm.rentalItemsState.value.error}")
 
+                //TODO poista rentalitem
                 //Opens the delete screen prompt when selected id is not 0
                 /*categoriesVm.categoryDeleteState.value.id > 0 -> ConfirmCategoryDelete(
                     error = categoriesVm.categoryDeleteState.value.error,
@@ -88,10 +91,6 @@ fun RentalItemScreen(onMenuClick: () -> Unit){
                         ) {
                             Row(
                                 modifier = Modifier
-                                    .clickable {
-                                        //gotoRentalItemScreen(it)
-                                        //Log.d("juuh", it.categoryId.toString())
-                                    }
                                     .fillMaxWidth(),
 
                                 horizontalArrangement = Arrangement.SpaceBetween
@@ -114,7 +113,7 @@ fun RentalItemScreen(onMenuClick: () -> Unit){
                                         contentDescription = stringResource(id = R.string.delete)
                                     )
                                 }
-                                IconButton(onClick = { /*gotoCategoryEdit(it) */}) {
+                                IconButton(onClick = {/*TODO muokkaa rental item gotoCategoryEdit(it) */}) {
                                     Icon(
                                         imageVector = Icons.Default.Edit,
                                         contentDescription = stringResource(id = R.string.add_item)

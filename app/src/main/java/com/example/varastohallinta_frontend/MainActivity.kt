@@ -169,7 +169,14 @@ class MainActivity : ComponentActivity() {
                                     scope.launch {
                                         drawerState.open()
                                     }
+                                }, gotoRentalItemAdd = {
+                                    navController.navigate("rentalItemAddScreen")
                                 })
+                            }
+                            composable("rentalItemAddScreen"){
+                                RentalItemAddScreen(goBack = { navController.navigateUp() }) {
+                                    
+                                }
                             }
                         }
                     }

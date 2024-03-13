@@ -10,9 +10,10 @@ data class RentalItemsState(
 )
 
 data class RentalItemState(
+    @SerializedName("rental_item_name")
     val rentalItemName: String = "",
-    val loading: Boolean,
-    val error: String?,
+    val loading: Boolean = false,
+    val error: String? = null,
     val done: Boolean = false
 )
 
@@ -30,6 +31,11 @@ data class RentalItemsByCategoryRes(
 data class RentalItem(
     @SerializedName("rental_item_id")
     val rentalItemId: Int = 0,
+    @SerializedName("rental_item_name")
+    val rentalItemName: String = ""
+)
+
+data class AddRentalItemReq(
     @SerializedName("rental_item_name")
     val rentalItemName: String = ""
 )
