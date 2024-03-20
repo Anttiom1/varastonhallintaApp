@@ -28,11 +28,11 @@ import com.example.varastohallinta_frontend.viewmodel.CategoryEditViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoryEditScreen(goToCategories: () -> Unit, goBack: () -> Unit) {
-    val vm: CategoryEditViewModel = viewModel()
+    val categoryEditViewModel: CategoryEditViewModel = viewModel()
     
-    LaunchedEffect(key1 = vm.categoryState.value.done){
-        if(vm.categoryState.value.done){
-            vm.setDone(false)
+    LaunchedEffect(key1 = categoryEditViewModel.categoryState.value.done){
+        if(categoryEditViewModel.categoryState.value.done){
+            categoryEditViewModel.setDone(false)
             goToCategories()
         }
     }
@@ -40,7 +40,7 @@ fun CategoryEditScreen(goToCategories: () -> Unit, goBack: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(title = {
-                Text(text = vm.categoryState.value.categoryName)
+                Text(text = categoryEditViewModel.categoryState.value.categoryName)
             })
         }
     ) {
@@ -50,25 +50,25 @@ fun CategoryEditScreen(goToCategories: () -> Unit, goBack: () -> Unit) {
                 .padding(it)
         ) {
             when {
-                vm.categoryState.value.loading -> CircularProgressIndicator(
+                categoryEditViewModel.categoryState.value.loading -> CircularProgressIndicator(
                     Modifier.align(Alignment.Center)
                 )
 
-                vm.categoryState.value.error != null -> Text(text = stringResource(id = R.string.error) +": ${vm.categoryState.value.error}")
+                categoryEditViewModel.categoryState.value.error != null -> Text(text = stringResource(id = R.string.error) +": ${categoryEditViewModel.categoryState.value.error}")
                 else -> Column(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     OutlinedTextField(
-                        value = vm.categoryState.value.categoryName,
+                        value = categoryEditViewModel.categoryState.value.categoryName,
                         onValueChange = { name ->
-                            vm.setName(name)
+                            categoryEditViewModel.setName(name)
                         })
                     Spacer(modifier = Modifier.height(16.dp))
                     Row {
                         Button(onClick = {
-                            vm.editCategory()
+                            categoryEditViewModel.editCategory()
                             
                         }) {
                             Text(text = stringResource(id = R.string.edit))

@@ -9,10 +9,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.varastohallinta_frontend.api.rentalItemsServices
 import com.example.varastohallinta_frontend.model.AddRentalItemReq
 import com.example.varastohallinta_frontend.model.RentalItemState
-import com.example.varastohallinta_frontend.model.RentalItemsState
 import kotlinx.coroutines.launch
 
-class RentalItemAddToCategoryViewModel(savedStateHandle: SavedStateHandle): ViewModel() {
+class RentalItemAddViewModel(savedStateHandle: SavedStateHandle): ViewModel() {
     val categoryId = savedStateHandle.get<String>("categoryId")?.toIntOrNull() ?: 0
     private val _rentalItemState = mutableStateOf(RentalItemState())
     val rentalItemState : State<RentalItemState> = _rentalItemState

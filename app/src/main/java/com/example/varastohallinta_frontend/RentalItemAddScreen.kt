@@ -21,19 +21,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.varastohallinta_frontend.viewmodel.CategoryAddViewModel
-import com.example.varastohallinta_frontend.viewmodel.RentalItemAddToCategoryViewModel
+import com.example.varastohallinta_frontend.viewmodel.RentalItemAddViewModel
 
 @Composable
 fun RentalItemAddScreen(
                     goBack: () -> Unit,
-                    goToCategories: () -> Unit){
-    val vm: RentalItemAddToCategoryViewModel = viewModel()
+                    goToRentalItemScreen: (Int) -> Unit, ){
+    val rentalItemAddViewModel: RentalItemAddViewModel = viewModel()
 
-    LaunchedEffect(key1 = vm.rentalItemState.value.done) {
-        if (vm.rentalItemState.value.done) {
-            vm.setDone(false)
-            goToCategories()
+    LaunchedEffect(key1 = rentalItemAddViewModel.rentalItemState.value.done) {
+        if (rentalItemAddViewModel.rentalItemState.value.done) {
+            rentalItemAddViewModel.setDone(false)
+            goToRentalItemScreen(rentalItemAddViewModel.categoryId)
         }
     }
 
@@ -48,13 +47,13 @@ fun RentalItemAddScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                OutlinedTextField(value = vm.rentalItemState.value.rentalItemName,
-                    onValueChange = { vm.setName(it) })
+                OutlinedTextField(value = rentalItemAddViewModel.rentalItemState.value.rentalItemName,
+                    onValueChange = { rentalItemAddViewModel.setName(it) })
                 Spacer(modifier = Modifier.height(16.dp))
                 Row {
                     Button(onClick = {
-                        vm.addItemToCategory()
-                        Log.d("jyy", vm.categoryId.toString())
+                        rentalItemAddViewModel.addItemToCategory()
+                        Log.d("jyy", rentalItemAddViewModel.categoryId.toString())
 
                     }) {
                         Text(text = stringResource(id = R.string.add_item))

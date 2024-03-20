@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Menu
@@ -36,15 +37,15 @@ import com.example.varastohallinta_frontend.viewmodel.RentalItemViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RentalItemScreen(onMenuClick: () -> Unit,
+fun RentalItemScreen(onBackArrowClick: () -> Unit,
                      gotoRentalItemAdd: (Int) -> Unit
 ){
-    val rentalItemsVm : RentalItemViewModel = viewModel()
+    val rentalItemViewModel : RentalItemViewModel = viewModel()
 
     Scaffold(
         floatingActionButtonPosition = FabPosition.Center,
         floatingActionButton = {
-            FloatingActionButton(onClick = { gotoRentalItemAdd(rentalItemsVm.categoryId); Log.d("jyy", rentalItemsVm.categoryId.toString())}) {
+            FloatingActionButton(onClick = { gotoRentalItemAdd(rentalItemViewModel.categoryId); Log.d("jyy", rentalItemViewModel.categoryId.toString())}) {
             Icon(imageVector = Icons.Filled.Add, contentDescription = "add") }
 
         },
@@ -52,10 +53,10 @@ fun RentalItemScreen(onMenuClick: () -> Unit,
             TopAppBar(
                 navigationIcon = {
                     IconButton(onClick = {
-                        onMenuClick()
+                        onBackArrowClick()
                     }) {
                         Icon(
-                            imageVector = Icons.Default.Menu,
+                            imageVector = Icons.Default.ArrowBack,
                             contentDescription = stringResource(id = R.string.menu)
                         )
                     }
@@ -68,14 +69,14 @@ fun RentalItemScreen(onMenuClick: () -> Unit,
                 .padding(it)
         ) {
             when {
-                rentalItemsVm.rentalItemsState.value.loading -> CircularProgressIndicator(
+                rentalItemViewModel.rentalItemsState.value.loading -> CircularProgressIndicator(
                     modifier = Modifier.align(
                         Alignment.Center
                     )
                 )
 
-                rentalItemsVm.rentalItemsState.value.error != null ->
-                    Text(text = stringResource(id = R.string.error) + ": ${rentalItemsVm.rentalItemsState.value.error}")
+                rentalItemViewModel.rentalItemsState.value.error != null ->
+                    Text(text = stringResource(id = R.string.error) + ": ${rentalItemViewModel.rentalItemsState.value.error}")
 
                 //TODO poista rentalitem
                 //Opens the delete screen prompt when selected id is not 0
@@ -85,7 +86,7 @@ fun RentalItemScreen(onMenuClick: () -> Unit,
                     onConfirm = { categoriesVm.deleteCategory() })*/
 
                 else -> LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(rentalItemsVm.rentalItemsState.value.list) {
+                    items(rentalItemViewModel.rentalItemsState.value.list) {
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()

@@ -25,11 +25,11 @@ import com.example.varastohallinta_frontend.viewmodel.CategoryAddViewModel
 @Composable
 fun CategoryAddScreen(goBack: () -> Unit,
                       goToCategories: () -> Unit){
-    val vm: CategoryAddViewModel = viewModel()
+    val categoryAddViewModel: CategoryAddViewModel = viewModel()
 
-    LaunchedEffect(key1 = vm.categoryState.value.done) {
-        if (vm.categoryState.value.done) {
-            vm.setDone(false)
+    LaunchedEffect(key1 = categoryAddViewModel.categoryState.value.done) {
+        if (categoryAddViewModel.categoryState.value.done) {
+            categoryAddViewModel.setDone(false)
             goToCategories()
         }
     }
@@ -45,12 +45,12 @@ fun CategoryAddScreen(goBack: () -> Unit,
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    OutlinedTextField(value = vm.categoryState.value.categoryName,
-                        onValueChange = { vm.setName(it) })
+                    OutlinedTextField(value = categoryAddViewModel.categoryState.value.categoryName,
+                        onValueChange = { categoryAddViewModel.setName(it) })
                     Spacer(modifier = Modifier.height(16.dp))
                     Row {
                         Button(onClick = {
-                            vm.addCategory()
+                            categoryAddViewModel.addCategory()
 
                         }) {
                             Text(text = stringResource(id = R.string.add_category))

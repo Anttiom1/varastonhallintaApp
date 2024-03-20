@@ -165,18 +165,18 @@ class MainActivity : ComponentActivity() {
                                 })
                             }
                             composable("rentalItemScreen/{categoryId}/items"){
-                                RentalItemScreen(onMenuClick = {
-                                    scope.launch {
-                                        drawerState.open()
-                                    }
+                                RentalItemScreen(onBackArrowClick = {
+                                    navController.navigateUp()
                                 }, gotoRentalItemAdd = {
                                     navController.navigate("rentalItemAddScreen/${it}")
                                 })
                             }
                             composable("rentalItemAddScreen/{categoryId}"){
-                                RentalItemAddScreen(goBack = { navController.navigateUp() }) {
-                                    
-                                }
+                                RentalItemAddScreen(goBack = {
+                                    navController.navigateUp()
+                                }, goToRentalItemScreen = {
+                                    navController.navigate("rentalItemScreen/${it}/items")
+                                })
                             }
                         }
                     }
