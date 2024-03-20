@@ -24,4 +24,7 @@ interface RentalItemsApi {
         @Path("categoryId") categoryId: Int,
         @Body addRentalItemReq: AddRentalItemReq
     )
+
+    @DELETE("rentalitem/{rentalItemId}")
+    suspend fun removeItem(@Path("rentalItemId") rentalItemId: Int)
 }
