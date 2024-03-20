@@ -14,7 +14,8 @@ data class RentalItemState(
     val rentalItemName: String = "",
     val loading: Boolean = false,
     val error: String? = null,
-    val done: Boolean = false
+    val done: Boolean = false,
+
 )
 
 data class RentalItemDeleteState(
@@ -32,10 +33,18 @@ data class RentalItem(
     @SerializedName("rental_item_id")
     val rentalItemId: Int = 0,
     @SerializedName("rental_item_name")
-    val rentalItemName: String = ""
+    val rentalItemName: String = "",
+    @SerializedName("category_category_id")
+    val categoryId: Int = 0,
+    @SerializedName("created_by_user_id")
+    val createdByUserId: Int = 0
 )
 
 data class AddRentalItemReq(
     @SerializedName("rental_item_name")
-    val rentalItemName: String = ""
+    val rentalItemName: String = "",
+    @SerializedName("category_category_id")
+    val categoryId: Int = 0,
+    @SerializedName("created_by_user_id")
+    val createdByUserId: Int = 1
 )

@@ -1,5 +1,6 @@
 package com.example.varastohallinta_frontend
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,8 +25,9 @@ import com.example.varastohallinta_frontend.viewmodel.CategoryAddViewModel
 import com.example.varastohallinta_frontend.viewmodel.RentalItemAddToCategoryViewModel
 
 @Composable
-fun RentalItemAddScreen(goBack: () -> Unit,
-                      goToCategories: () -> Unit){
+fun RentalItemAddScreen(
+                    goBack: () -> Unit,
+                    goToCategories: () -> Unit){
     val vm: RentalItemAddToCategoryViewModel = viewModel()
 
     LaunchedEffect(key1 = vm.rentalItemState.value.done) {
@@ -51,7 +53,8 @@ fun RentalItemAddScreen(goBack: () -> Unit,
                 Spacer(modifier = Modifier.height(16.dp))
                 Row {
                     Button(onClick = {
-                        vm.addItemToCategory(/*TODO: Get the category Id and store it all the way here to replace that 3 with the real categoryID*/ 3)
+                        vm.addItemToCategory()
+                        Log.d("jyy", vm.categoryId.toString())
 
                     }) {
                         Text(text = stringResource(id = R.string.add_item))

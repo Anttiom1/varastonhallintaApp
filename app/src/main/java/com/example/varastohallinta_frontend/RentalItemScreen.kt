@@ -31,19 +31,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.varastohallinta_frontend.model.RentalItem
 import com.example.varastohallinta_frontend.viewmodel.RentalItemViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RentalItemScreen(onMenuClick: () -> Unit,
-                     gotoRentalItemAdd: () -> Unit
+                     gotoRentalItemAdd: (Int) -> Unit
 ){
     val rentalItemsVm : RentalItemViewModel = viewModel()
 
     Scaffold(
         floatingActionButtonPosition = FabPosition.Center,
         floatingActionButton = {
-            FloatingActionButton(onClick = { gotoRentalItemAdd()}) {
+            FloatingActionButton(onClick = { gotoRentalItemAdd(rentalItemsVm.categoryId); Log.d("jyy", rentalItemsVm.categoryId.toString())}) {
             Icon(imageVector = Icons.Filled.Add, contentDescription = "add") }
 
         },
@@ -59,7 +60,7 @@ fun RentalItemScreen(onMenuClick: () -> Unit,
                         )
                     }
                 },
-                title = { Text(text = "" )})
+                title = { Text(text = "test" )})
         }) {
         Box(
             modifier = Modifier
@@ -113,7 +114,7 @@ fun RentalItemScreen(onMenuClick: () -> Unit,
                                         contentDescription = stringResource(id = R.string.delete)
                                     )
                                 }
-                                IconButton(onClick = {/*TODO muokkaa rental item gotoCategoryEdit(it) */}) {
+                                IconButton(onClick = {/*TODO muokkaa rental item. gotoCategoryEdit(it) */}) {
                                     Icon(
                                         imageVector = Icons.Default.Edit,
                                         contentDescription = stringResource(id = R.string.add_item)

@@ -12,7 +12,7 @@ import com.example.varastohallinta_frontend.model.RentalItemsState
 import kotlinx.coroutines.launch
 
 class RentalItemViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
-    val id = savedStateHandle.get<String>("categoryId")?.toIntOrNull() ?: 0
+    val categoryId = savedStateHandle.get<String>("categoryId")?.toIntOrNull() ?: 0
     private val _rentalItemsState = mutableStateOf(RentalItemsState())
     val rentalItemsState: State<RentalItemsState> = _rentalItemsState
 
@@ -24,7 +24,7 @@ class RentalItemViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
         viewModelScope.launch {
             try {
                 _rentalItemsState.value = _rentalItemsState.value.copy(loading = true)
-                val rentalItemsByCategoryRes = rentalItemsServices.getItemsByCategory(id)
+                val rentalItemsByCategoryRes = rentalItemsServices.getItemsByCategory(categoryId)
                 _rentalItemsState.value = _rentalItemsState.value.copy(list = rentalItemsByCategoryRes.list)
                 Log.d("test","test")
             }

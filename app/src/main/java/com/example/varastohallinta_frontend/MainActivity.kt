@@ -170,10 +170,10 @@ class MainActivity : ComponentActivity() {
                                         drawerState.open()
                                     }
                                 }, gotoRentalItemAdd = {
-                                    navController.navigate("rentalItemAddScreen")
+                                    navController.navigate("rentalItemAddScreen/${it}")
                                 })
                             }
-                            composable("rentalItemAddScreen"){
+                            composable("rentalItemAddScreen/{categoryId}"){
                                 RentalItemAddScreen(goBack = { navController.navigateUp() }) {
                                     
                                 }
