@@ -32,7 +32,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -55,8 +59,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val settingsViewModel : SettingsViewModel = viewModel()
-            Varastohallinta_frontendTheme(darkTheme = settingsViewModel.userSettingsState.value.darkMode) {
+            var darkMode by remember { mutableStateOf(false) }
+            Varastohallinta_frontendTheme(darkTheme = darkMode) {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -130,11 +134,10 @@ class MainActivity : ComponentActivity() {
                             }
                             composable(route="settingsScreen" ){
                                 SettingsScreen(
-                                    settingsViewModel = settingsViewModel,
+                                    darkMode = darkMode,
                                     onMenuClick = { scope.launch { drawerState.open() } },
                                     //Toggle dark mode
-                                    onDarkModeClicked = {settingsViewModel.setDarkMode(it)},
-                                    onTestClick = {settingsViewModel.setTestMode(it)})
+                                    onDarkModeClicked = {darkMode = !darkMode})
                             }
                             composable("categoriesScreen") {
                                 CategoriesScreen(onMenuClick = {

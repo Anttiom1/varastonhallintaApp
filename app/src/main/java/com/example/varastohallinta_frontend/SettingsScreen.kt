@@ -44,10 +44,12 @@ import java.time.format.TextStyle
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
-    settingsViewModel: SettingsViewModel,
+    darkMode: Boolean,
     onMenuClick: () -> Unit,
-    onDarkModeClicked: (Boolean) -> Unit,
-    onTestClick: (Boolean) -> Unit ){
+    onDarkModeClicked: (Boolean) -> Unit){
+
+    val settingsViewModel : SettingsViewModel = viewModel()
+    settingsViewModel.setDarkMode(darkMode = darkMode)
 
     Scaffold(topBar = {
         TopAppBar(
@@ -68,20 +70,19 @@ fun SettingsScreen(
                 .padding(it),
             color = MaterialTheme.colorScheme.background
         ) {
-            MultipleSwitchesColumn(settingsViewModel, onDarkModeClicked, onTestClick)
+            MultipleSwitchesColumn(onDarkModeClicked)
         }
     }
 }
 
 @Composable
-fun MultipleSwitchesColumn(settingsViewModel: SettingsViewModel,
-                           onDarkModeClicked: (Boolean) -> Unit,
-                           onTestClick: (Boolean) -> Unit) {
+fun MultipleSwitchesColumn(
+                           onDarkModeClicked: (Boolean) -> Unit) {
+    val settingsViewModel : SettingsViewModel = viewModel()
     // Create a list of switch items
 
     val switchItems = listOf(
-        SwitchItem("Dark Mode", settingsViewModel, onDarkModeClicked, checked = settingsViewModel.userSettingsState.value.darkMode),
-        SwitchItem("Testi Mode", settingsViewModel, onTestClick, checked = settingsViewModel.userSettingsState.value.testMode)
+        SwitchItem("Dark Mode", onDarkModeClicked, checked = settingsViewModel.userSettingsState.value.darkMode),
 
         // Add more items as needed
     )
@@ -126,4 +127,4 @@ fun SwitchItemRow(switchItem: SwitchItem) {
     }
 }
 
-data class SwitchItem(val title: String, val settingsViewModel: SettingsViewModel, val onSwitchToggle : (Boolean) -> Unit, val checked : Boolean)
+data class SwitchItem(val title: String, val onSwitchToggle : (Boolean) -> Unit, val checked : Boolean)
