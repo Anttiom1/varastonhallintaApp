@@ -1,5 +1,6 @@
 package com.example.varastohallinta_frontend
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +16,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -32,9 +35,24 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.varastohallinta_frontend.viewmodel.LoginViewModel
 
 @Composable
-fun LoginScreen(onLoginClick: ()-> Unit) {
+fun LoginScreen(goToLandingScreen: () -> Unit) {
     val loginViewModel: LoginViewModel = viewModel()
     var isPasswordVisible by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    
+    LaunchedEffect(key1 = loginViewModel.loginState.value.error){
+        loginViewModel.loginState.value.error?.let {
+            Toast.makeText(context, loginViewModel.loginState.value.error, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    LaunchedEffect(key1 = loginViewModel.loginState.value.loginOk){
+        if(loginViewModel.loginState.value.loginOk){
+            loginViewModel.setLogin(false)
+            goToLandingScreen()
+        }
+    }
+    
     Box(modifier = Modifier.fillMaxSize()) {
         when {
             loginViewModel.loginState.value.loading -> CircularProgressIndicator(
@@ -97,7 +115,6 @@ fun LoginScreen(onLoginClick: ()-> Unit) {
                             && loginViewModel.loginState.value.password != "",
                     onClick = {
                     loginViewModel.login()
-                    onLoginClick()
                 }) {
                     Text(stringResource(R.string.login))
                 }

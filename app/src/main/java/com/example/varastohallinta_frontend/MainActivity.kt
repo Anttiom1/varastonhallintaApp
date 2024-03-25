@@ -130,7 +130,7 @@ class MainActivity : ComponentActivity() {
                         //Navhost
                         NavHost(navController = navController, startDestination = "loginScreen"){
                             composable(route="loginScreen"){
-                                LoginScreen(onLoginClick = {navController.navigate("categoriesScreen")})
+                                LoginScreen(goToLandingScreen = {navController.navigate("categoriesScreen")})
                             }
                             composable(route="settingsScreen" ){
                                 SettingsScreen(

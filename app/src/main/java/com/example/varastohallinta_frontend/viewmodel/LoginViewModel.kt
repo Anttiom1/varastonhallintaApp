@@ -28,8 +28,8 @@ class LoginViewModel(private val db: AccountDatabase = DbProvider.db) : ViewMode
     }
 
     //Use only to simulate login delay
-    private suspend fun _waitForLogin(){
-        delay(2000)
+    fun setLogin(ok: Boolean){
+        _loginState.value = _loginState.value.copy(loginOk = ok)
     }
 
     fun login(){
@@ -46,6 +46,7 @@ class LoginViewModel(private val db: AccountDatabase = DbProvider.db) : ViewMode
                 db.accountDao().addToken(
                     AccountEntity(accessToken = res.accessToken)
                 )
+                setLogin(true)
             }
             catch (e: Exception){
                 _loginState.value = _loginState.value.copy(error = e.toString())
