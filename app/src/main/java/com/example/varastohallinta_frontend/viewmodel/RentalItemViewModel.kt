@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.varastohallinta_frontend.api.categoriesService
 import com.example.varastohallinta_frontend.api.rentalItemsServices
 import com.example.varastohallinta_frontend.model.CategoriesState
+import com.example.varastohallinta_frontend.model.CategoryItem
 import com.example.varastohallinta_frontend.model.RentalItemDeleteState
 import com.example.varastohallinta_frontend.model.RentalItemsState
 import kotlinx.coroutines.launch
@@ -19,10 +20,15 @@ class RentalItemViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
     val rentalItemsState: State<RentalItemsState> = _rentalItemsState
     private val _rentalItemDeleteState = mutableStateOf(RentalItemDeleteState())
     val rentalItemDeleteState = _rentalItemDeleteState
+    var categoryName: String = ""
 
     init {
-        getRentalItemsByCategory()
+        viewModelScope.launch {
+            getRentalItemsByCategory()
+            categoryName = categoriesService.getCategoryById(categoryId).category.categoryName
+        }
     }
+
 
     fun setDeletableItemId(id: Int){
         rentalItemDeleteState.value = rentalItemDeleteState.value.copy(id = id)

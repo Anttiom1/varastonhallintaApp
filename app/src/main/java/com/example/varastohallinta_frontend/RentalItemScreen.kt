@@ -66,7 +66,7 @@ fun RentalItemScreen(onBackArrowClick: () -> Unit,
                         )
                     }
                 },
-                title = { Text(text = "test" )})
+                title = { Text(text = rentalItemViewModel.categoryName)})
         }) {
         Box(
             modifier = Modifier

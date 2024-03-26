@@ -10,9 +10,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -22,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.varastohallinta_frontend.viewmodel.CategoryAddViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoryAddScreen(goBack: () -> Unit,
                       goToCategories: () -> Unit){
@@ -34,7 +37,9 @@ fun CategoryAddScreen(goBack: () -> Unit,
         }
     }
 
-        Scaffold {
+        Scaffold(
+            topBar = { TopAppBar(title = { Text(text = "Add new category")})}
+        ){
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -46,7 +51,8 @@ fun CategoryAddScreen(goBack: () -> Unit,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     OutlinedTextField(value = categoryAddViewModel.categoryState.value.categoryName,
-                        onValueChange = { categoryAddViewModel.setName(it) })
+                        onValueChange = { categoryAddViewModel.setName(it) },
+                        placeholder = { Text(text = "Category name")})
                     Spacer(modifier = Modifier.height(16.dp))
                     Row {
                         Button(onClick = {
