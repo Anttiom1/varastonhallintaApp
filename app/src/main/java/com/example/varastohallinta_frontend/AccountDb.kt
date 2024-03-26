@@ -23,6 +23,9 @@ abstract class AccountDao {
 
     @Query("SELECT accessToken FROM account ORDER BY id DESC LIMIT 1;")
     abstract suspend fun getToken(): String?
+
+    @Query("DELETE FROM account")
+    abstract suspend fun removeTokens()
 }
 
 @Database(entities = [AccountEntity::class], version = 1)

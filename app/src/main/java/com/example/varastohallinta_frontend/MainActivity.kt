@@ -130,7 +130,7 @@ class MainActivity : ComponentActivity() {
                         //Navhost
                         NavHost(navController = navController, startDestination = "loginScreen"){
                             composable(route="loginScreen"){
-                                LoginScreen(goToLandingScreen = {navController.navigate("categoriesScreen")})
+                                LoginScreen(goToLandingScreen = {navController.navigate("homeScreen")})
                             }
                             composable(route="settingsScreen" ){
                                 SettingsScreen(
@@ -180,6 +180,16 @@ class MainActivity : ComponentActivity() {
                                 }, goToRentalItemScreen = {
                                     navController.navigate("rentalItemScreen/${it}/items")
                                 })
+                            }
+                            composable("homeScreen"){
+                                HomeScreen(
+                                    goToLoginScreen = { navController.navigate("loginScreen"){
+                                        popUpTo("loginScreen"){
+                                            inclusive = true
+                                        }
+                                    }
+                                    }
+                                )
                             }
                         }
                     }
