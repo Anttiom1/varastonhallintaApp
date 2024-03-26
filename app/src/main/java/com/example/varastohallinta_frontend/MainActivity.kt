@@ -131,7 +131,8 @@ class MainActivity : ComponentActivity() {
                         //Navhost
                         NavHost(navController = navController, startDestination = "loginScreen"){
                             composable(route="loginScreen"){
-                                LoginScreen(goToLandingScreen = {navController.navigate("settingsScreen")})
+                                LoginScreen(goToLandingScreen = {navController.navigate("settingsScreen")},
+                                    goToCreateAccount = {navController.navigate("createAccountScreen")})
                             }
                             composable(route="settingsScreen" ){
                                 SettingsScreen(
@@ -191,6 +192,9 @@ class MainActivity : ComponentActivity() {
                                     }
                                     }
                                 )
+                            }
+                            composable("createAccountScreen"){
+                                CreateAccountScreen(goBack = {navController.navigateUp()})
                             }
                         }
                     }

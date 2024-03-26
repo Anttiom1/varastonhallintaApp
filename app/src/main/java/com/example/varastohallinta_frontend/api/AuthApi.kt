@@ -2,6 +2,7 @@ package com.example.varastohallinta_frontend.api
 
 import com.example.varastohallinta_frontend.model.AuthReq
 import com.example.varastohallinta_frontend.model.AuthRes
+import com.example.varastohallinta_frontend.model.CreateAccountReq
 import com.example.varastohallinta_frontend.model.LoggedUserRes
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -22,4 +23,7 @@ interface AuthApi{
 
     @GET("auth/account")
     suspend fun getAccount(@Header("Authorization") bearerToken: String): LoggedUserRes
+
+    @POST("auth/register")
+    suspend fun createAccount(@Body req: CreateAccountReq)
 }

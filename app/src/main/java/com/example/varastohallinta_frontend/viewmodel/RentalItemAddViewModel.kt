@@ -6,13 +6,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.varastohallinta_frontend.AccountDatabase
-import com.example.varastohallinta_frontend.DbProvider
 import com.example.varastohallinta_frontend.DbProvider.db
 import com.example.varastohallinta_frontend.api.authService
 import com.example.varastohallinta_frontend.api.rentalItemsServices
 import com.example.varastohallinta_frontend.model.AddRentalItemReq
-import com.example.varastohallinta_frontend.model.LoggedUserRes
 import com.example.varastohallinta_frontend.model.RentalItemState
 import kotlinx.coroutines.launch
 

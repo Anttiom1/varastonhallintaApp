@@ -25,3 +25,4 @@ data class AuthRes(
     @SerializedName("access_token")
     val accessToken: String = ""
 )
+

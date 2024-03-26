@@ -29,6 +29,5 @@ fun LogoutScreen(goToLoginScreen: ()-> Unit){
         }
         else
             logoutViewModel.logout()
-            Log.d("antti", "not logged in")
     }
 }
