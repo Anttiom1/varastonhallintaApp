@@ -1,6 +1,7 @@
 package com.example.varastohallinta_frontend.viewmodel
 
 import android.util.Log
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -19,6 +20,19 @@ class LoginViewModel(private val db: AccountDatabase = DbProvider.db) : ViewMode
     private val _loginState = mutableStateOf(LoginState())
     val loginState: State<LoginState>  = _loginState
 
+
+    init {
+        viewModelScope.launch {
+            val accessToken = db.accountDao().getToken()
+            accessToken?.let {
+                val loggedUser = authService.getAccount("bearer $it")
+                _loginState.value = _loginState.value.copy(username = loggedUser.username)
+                _loginState.value = _loginState.value.copy(authUserId = loggedUser.authUserId)
+                setLogin(true)
+            }
+        }
+    }
+
     fun setUsername(newUsername : String){
         _loginState.value = _loginState.value.copy(username = newUsername)
     }
@@ -33,7 +47,6 @@ class LoginViewModel(private val db: AccountDatabase = DbProvider.db) : ViewMode
     }
 
     fun login(){
-
         viewModelScope.launch {
             try {
                 _loginState.value = _loginState.value.copy(loading = true)
@@ -46,6 +59,7 @@ class LoginViewModel(private val db: AccountDatabase = DbProvider.db) : ViewMode
                 db.accountDao().addToken(
                     AccountEntity(accessToken = res.accessToken)
                 )
+                Log.d("jyy", res.accessToken)
                 setLogin(true)
             }
             catch (e: Exception){

@@ -1,5 +1,6 @@
 package com.example.varastohallinta_frontend
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -52,7 +53,7 @@ fun LoginScreen(goToLandingScreen: () -> Unit) {
             goToLandingScreen()
         }
     }
-    
+
     Box(modifier = Modifier.fillMaxSize()) {
         when {
             loginViewModel.loginState.value.loading -> CircularProgressIndicator(

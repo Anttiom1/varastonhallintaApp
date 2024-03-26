@@ -2,7 +2,9 @@ package com.example.varastohallinta_frontend.api
 
 import com.example.varastohallinta_frontend.model.AuthReq
 import com.example.varastohallinta_frontend.model.AuthRes
+import com.example.varastohallinta_frontend.model.LoggedUserRes
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 
@@ -17,4 +19,7 @@ interface AuthApi{
 
     @POST("auth/logout")
     suspend fun logout(@Header("Authorization") bearerToken: String)
+
+    @GET("auth/account")
+    suspend fun getAccount(@Header("Authorization") bearerToken: String): LoggedUserRes
 }
