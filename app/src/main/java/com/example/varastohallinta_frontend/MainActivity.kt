@@ -80,7 +80,8 @@ class MainActivity : ComponentActivity() {
                                 NavigationDrawerItem(
                                     label = { Text(text = "Home") },
                                     selected = false,
-                                    onClick = { /*TODO*/ },
+                                    onClick = { navController.navigate("homeScreen")
+                                                scope.launch { drawerState.close() }},
                                     icon = {
                                         Icon(
                                             imageVector = Icons.Filled.Home,
@@ -115,7 +116,7 @@ class MainActivity : ComponentActivity() {
                                 NavigationDrawerItem(
                                     label = { Text(text = "Logout") },
                                     selected = false,
-                                    onClick = { navController.navigate("loginScreen")
+                                    onClick = { navController.navigate("logoutScreen")
                                               scope.launch { drawerState.close() }},
                                     icon = {
                                         Icon(
@@ -130,7 +131,7 @@ class MainActivity : ComponentActivity() {
                         //Navhost
                         NavHost(navController = navController, startDestination = "loginScreen"){
                             composable(route="loginScreen"){
-                                LoginScreen(goToLandingScreen = {navController.navigate("homeScreen")})
+                                LoginScreen(goToLandingScreen = {navController.navigate("settingsScreen")})
                             }
                             composable(route="settingsScreen" ){
                                 SettingsScreen(
@@ -181,8 +182,8 @@ class MainActivity : ComponentActivity() {
                                     navController.navigate("rentalItemScreen/${it}/items")
                                 })
                             }
-                            composable("homeScreen"){
-                                HomeScreen(
+                            composable("logoutScreen"){
+                                LogoutScreen(
                                     goToLoginScreen = { navController.navigate("loginScreen"){
                                         popUpTo("loginScreen"){
                                             inclusive = true

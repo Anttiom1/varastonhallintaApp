@@ -59,7 +59,6 @@ class LoginViewModel(private val db: AccountDatabase = DbProvider.db) : ViewMode
                 db.accountDao().addToken(
                     AccountEntity(accessToken = res.accessToken)
                 )
-                Log.d("jyy", res.accessToken)
                 setLogin(true)
             }
             catch (e: Exception){

@@ -1,6 +1,5 @@
 package com.example.varastohallinta_frontend.viewmodel
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.State
@@ -12,9 +11,10 @@ import kotlinx.coroutines.launch
 
 data class LogoutState(val loading: Boolean = false,
                        val error: String? = null,
-                       val logoutOk: Boolean = false)
+                       val logoutOk: Boolean = false,
+                       )
 
-class HomeViewModel(private val db: AccountDatabase = DbProvider.db) : ViewModel(){
+class LogoutViewModel(private val db: AccountDatabase = DbProvider.db) : ViewModel(){
 
     private val _logoutState = mutableStateOf(LogoutState())
     val logoutState: State<LogoutState> = _logoutState
@@ -31,8 +31,8 @@ class HomeViewModel(private val db: AccountDatabase = DbProvider.db) : ViewModel
                 accessToken?.let {
                     authService.logout("Bearer $it")
                     db.accountDao().removeTokens()
-                    setLogout(true)
                 }
+                setLogout(true)
             }
             catch (e: Exception){
                 _logoutState.value = _logoutState.value.copy(error = e.toString())
