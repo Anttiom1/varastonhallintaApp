@@ -72,12 +72,8 @@ fun ConfirmCategoryDelete(error: String?, onDismiss: () -> Unit, onConfirm: () -
         }
     }
     AlertDialog(onDismissRequest = {  },
-        dismissButton = { TextButton(onClick = { onDismiss() }) {
-            Text(text = "Cancel")
-        }},
-        confirmButton = { TextButton(onClick = { onConfirm() }) {
-            Text(text = "Confirm")
-        } },
+        dismissButton = { TextButton(onClick = { onDismiss() }) { Text(text = "Cancel") }},
+        confirmButton = { TextButton(onClick = { onConfirm() }) { Text(text = "Confirm") }},
         icon = { Icon(
             imageVector = Icons.Default.Delete,
             contentDescription = "Delete category"

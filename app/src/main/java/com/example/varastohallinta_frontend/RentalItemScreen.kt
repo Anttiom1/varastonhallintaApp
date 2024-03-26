@@ -40,6 +40,28 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.varastohallinta_frontend.model.RentalItem
 import com.example.varastohallinta_frontend.viewmodel.RentalItemViewModel
 
+@Composable
+fun ConfirmItemDelete(error: String?, onDismiss: () -> Unit, onConfirm: () -> Unit){
+    val context = LocalContext.current
+    LaunchedEffect(key1 = error){
+        error?.let {
+            Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+        }
+    }
+    AlertDialog(
+        onDismissRequest = { },
+        confirmButton = { TextButton(onClick = { onConfirm() }) { Text(text = "Confirm") }},
+        dismissButton = { TextButton(onClick = { onDismiss() }) { Text(text = "Cancel") }},
+        icon =  {Icon(
+            imageVector = Icons.Default.Delete,
+            contentDescription = stringResource(id = R.string.delete)
+        ) },
+        text = { Text(text = "Are you sure you want to delete this item?")},
+        title = { Text(text = "Delete item")}
+    )
+}
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RentalItemScreen(onBackArrowClick: () -> Unit,
@@ -135,32 +157,3 @@ fun RentalItemScreen(onBackArrowClick: () -> Unit,
     }
 }
 
-@Composable
-fun ConfirmItemDelete(error: String?, onDismiss: () -> Unit, onConfirm: () -> Unit){
-    val context = LocalContext.current
-    LaunchedEffect(key1 = error){
-        error?.let {
-            Log.d("opop", error.toString())
-            Toast.makeText(context, error, Toast.LENGTH_LONG).show()
-        }
-    }
-    AlertDialog(
-        onDismissRequest = { },
-        confirmButton = { TextButton(
-            onClick = { onConfirm()})
-        {
-            Text(text = "Confirm")
-        } },
-        dismissButton = { TextButton(
-            onClick = { onDismiss() })
-        {
-            Text(text = "Cancel")
-        } },
-        icon =  {Icon(
-            imageVector = Icons.Default.Delete,
-            contentDescription = stringResource(id = R.string.delete)
-        ) }, 
-        text = { Text(text = "Are you sure you want to delete this item?")},
-        title = { Text(text = "Delete item")}
-        )
-}

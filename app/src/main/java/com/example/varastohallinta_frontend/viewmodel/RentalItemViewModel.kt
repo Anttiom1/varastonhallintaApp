@@ -38,11 +38,11 @@ class RentalItemViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
         viewModelScope.launch {
             try {
                 rentalItemsServices.removeItem(_rentalItemDeleteState.value.id)
-                val categories = _rentalItemsState.value.list.filter {
-                    it.categoryId != _rentalItemDeleteState.value.id
+                val items = _rentalItemsState.value.list.filter {
+                    it.rentalItemId != _rentalItemDeleteState.value.id
                 }
 
-                _rentalItemsState.value = _rentalItemsState.value.copy(list = categories)
+                _rentalItemsState.value = _rentalItemsState.value.copy(list = items)
 
                 //Sets id to 0 so that the delete screen goes away
                 setDeletableItemId(0)
