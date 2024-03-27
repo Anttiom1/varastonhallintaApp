@@ -1,5 +1,6 @@
 package com.example.varastohallinta_frontend.model
 
+import android.content.ClipData.Item
 import com.google.gson.annotations.SerializedName
 
 data class RentalItemsState(
@@ -52,4 +53,14 @@ data class AddRentalItemReq(
 data class UpdateItemReq(
     @SerializedName("rental_item_name")
     val rentalItemName: String = ""
+)
+
+data class UpdateItemRes(
+    @SerializedName("category_category")
+    val category: ItemCategory
+)
+
+data class ItemCategory(
+    @SerializedName("category_id")
+    val categoryId: Int = 0
 )

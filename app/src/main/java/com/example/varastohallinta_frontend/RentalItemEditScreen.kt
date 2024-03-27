@@ -30,12 +30,13 @@ import kotlin.math.log
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RentalItemEditScreen(goBack:()-> Unit){
+fun RentalItemEditScreen(goBack:()-> Unit,
+                         gotoRentalItemScreen: (Int)-> Unit){
     val vm: RentalItemEditViewModel = viewModel()
     LaunchedEffect(key1 = vm.rentalItemState.value.done){
         if(vm.rentalItemState.value.done){
             vm.setDone(false)
-            //goToCategories()
+            gotoRentalItemScreen(vm.categoryId.category.categoryId)
         }
     }
     Scaffold(
@@ -77,6 +78,10 @@ fun RentalItemEditScreen(goBack:()-> Unit){
                         Spacer(modifier = Modifier.width(8.dp))
                         Button(onClick = { goBack() }) {
                             Text(stringResource(id = R.string.back))
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Button(onClick = { Log.d("antti", vm.categoryId.toString())}) {
+                            Text("asd")
                         }
                     }
                 }

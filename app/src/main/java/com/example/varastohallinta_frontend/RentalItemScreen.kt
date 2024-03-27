@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Menu
@@ -145,6 +146,12 @@ fun RentalItemScreen(onBackArrowClick: () -> Unit,
                                 IconButton(onClick = { goToRentalItemEdit(it) }) {
                                     Icon(
                                         imageVector = Icons.Default.Edit,
+                                        contentDescription = stringResource(id = R.string.add_item)
+                                    )
+                                }
+                                IconButton(onClick = { Log.d("antti", rentalItemViewModel.rentalItemsState.value.list.toString()) }) {
+                                    Icon(
+                                        imageVector = Icons.Default.Check,
                                         contentDescription = stringResource(id = R.string.add_item)
                                     )
                                 }

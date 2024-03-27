@@ -199,6 +199,8 @@ class MainActivity : ComponentActivity() {
                             }
                             composable("rentalEditScreen/{rentalItemId}"){
                                 RentalItemEditScreen(goBack = { navController.navigateUp() },
+                                    gotoRentalItemScreen = {
+                                        navController.navigate("rentalItemScreen/${it}/items")}
                                     )
                             }
                         }

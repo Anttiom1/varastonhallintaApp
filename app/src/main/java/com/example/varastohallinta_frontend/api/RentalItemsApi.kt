@@ -3,6 +3,7 @@ package com.example.varastohallinta_frontend.api
 import com.example.varastohallinta_frontend.model.AddRentalItemReq
 import com.example.varastohallinta_frontend.model.RentalItemsByCategoryRes
 import com.example.varastohallinta_frontend.model.UpdateItemReq
+import com.example.varastohallinta_frontend.model.UpdateItemRes
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -28,7 +29,7 @@ interface RentalItemsApi {
     suspend fun editItem(
         @Path("rentalItemId") rentalItemId: Int,
         @Body reqBody: UpdateItemReq
-    )
+    ): UpdateItemRes
 
     @DELETE("rentalitem/{rentalItemId}")
     suspend fun removeItem(@Path("rentalItemId") rentalItemId: Int)

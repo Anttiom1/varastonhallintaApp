@@ -10,6 +10,7 @@ import com.example.varastohallinta_frontend.api.rentalItemsServices
 import com.example.varastohallinta_frontend.model.RentalItemState
 import com.example.varastohallinta_frontend.model.RentalItemsState
 import com.example.varastohallinta_frontend.model.UpdateItemReq
+import com.example.varastohallinta_frontend.model.UpdateItemRes
 import kotlinx.coroutines.launch
 
 class RentalItemEditViewModel(savedStateHandle: SavedStateHandle): ViewModel() {
@@ -17,6 +18,7 @@ class RentalItemEditViewModel(savedStateHandle: SavedStateHandle): ViewModel() {
 
     private val _rentalItemState = mutableStateOf(RentalItemState())
     val rentalItemState: State<RentalItemState> = _rentalItemState
+    lateinit var categoryId: UpdateItemRes
 
     fun setDone(done: Boolean){
         _rentalItemState.value = _rentalItemState.value.copy(done = done)
@@ -30,9 +32,10 @@ class RentalItemEditViewModel(savedStateHandle: SavedStateHandle): ViewModel() {
         viewModelScope.launch {
             try {
                 _rentalItemState.value = _rentalItemState.value.copy(loading = true)
-                rentalItemsServices.editItem(id, UpdateItemReq(
+                categoryId = rentalItemsServices.editItem(id, UpdateItemReq(
                     rentalItemName = _rentalItemState.value.rentalItemName)
                 )
+
                 setDone(true)
             }
             catch (e: Exception){
