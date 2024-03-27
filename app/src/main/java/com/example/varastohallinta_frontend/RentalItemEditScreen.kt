@@ -36,7 +36,7 @@ fun RentalItemEditScreen(goBack:()-> Unit,
     LaunchedEffect(key1 = vm.rentalItemState.value.done){
         if(vm.rentalItemState.value.done){
             vm.setDone(false)
-            gotoRentalItemScreen(vm.categoryId.category.categoryId)
+            gotoRentalItemScreen(vm.rentalItemEditRes.category.categoryId)
         }
     }
     Scaffold(
@@ -78,10 +78,6 @@ fun RentalItemEditScreen(goBack:()-> Unit,
                         Spacer(modifier = Modifier.width(8.dp))
                         Button(onClick = { goBack() }) {
                             Text(stringResource(id = R.string.back))
-                        }
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Button(onClick = { Log.d("antti", vm.categoryId.toString())}) {
-                            Text("asd")
                         }
                     }
                 }

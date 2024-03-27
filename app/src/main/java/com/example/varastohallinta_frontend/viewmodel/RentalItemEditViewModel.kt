@@ -18,7 +18,7 @@ class RentalItemEditViewModel(savedStateHandle: SavedStateHandle): ViewModel() {
 
     private val _rentalItemState = mutableStateOf(RentalItemState())
     val rentalItemState: State<RentalItemState> = _rentalItemState
-    lateinit var categoryId: UpdateItemRes
+    lateinit var rentalItemEditRes: UpdateItemRes
 
     fun setDone(done: Boolean){
         _rentalItemState.value = _rentalItemState.value.copy(done = done)
@@ -32,7 +32,7 @@ class RentalItemEditViewModel(savedStateHandle: SavedStateHandle): ViewModel() {
         viewModelScope.launch {
             try {
                 _rentalItemState.value = _rentalItemState.value.copy(loading = true)
-                categoryId = rentalItemsServices.editItem(id, UpdateItemReq(
+                rentalItemEditRes = rentalItemsServices.editItem(id, UpdateItemReq(
                     rentalItemName = _rentalItemState.value.rentalItemName)
                 )
 
