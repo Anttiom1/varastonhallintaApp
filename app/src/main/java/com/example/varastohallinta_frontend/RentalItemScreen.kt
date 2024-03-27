@@ -42,7 +42,7 @@ import com.example.varastohallinta_frontend.model.RentalItem
 import com.example.varastohallinta_frontend.viewmodel.RentalItemViewModel
 
 @Composable
-fun ConfirmItemDelete(error: String?, onDismiss: () -> Unit, onConfirm: () -> Unit){
+fun ConfirmItemDelete(error: String?, onDismiss: ()-> Unit, onConfirm: ()-> Unit){
     val context = LocalContext.current
     LaunchedEffect(key1 = error){
         error?.let {
@@ -59,6 +59,26 @@ fun ConfirmItemDelete(error: String?, onDismiss: () -> Unit, onConfirm: () -> Un
         ) },
         text = { Text(text = "Are you sure you want to delete this item?")},
         title = { Text(text = "Delete item")}
+    )
+}
+
+@Composable
+fun ConfirmItemRent(error: String?, onDismiss:()-> Unit, onConfirm:()-> Unit ){
+    val context = LocalContext.current
+    LaunchedEffect(key1 = error){
+        error?.let {
+            Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+        }
+    }
+    AlertDialog(
+        onDismissRequest = { },
+        confirmButton = { TextButton(onClick = { onConfirm() }) { Text(text = "Confirm") }},
+        dismissButton = { TextButton(onClick = { onDismiss() }) { Text(text = "Cancel") }},
+        icon =  {Icon(
+            imageVector = Icons.Default.Check,
+            contentDescription = "Confirm")},
+        text = { Text(text = "Are you sure you want to rent this item?")},
+        title = { Text(text = "Rent item")}
     )
 }
 
@@ -113,6 +133,12 @@ fun RentalItemScreen(onBackArrowClick: () -> Unit,
                     onDismiss = { rentalItemViewModel.setDeletableItemId(0) },
                     onConfirm = { rentalItemViewModel.deleteItem() })
 
+                //Opens the delete screen prompt when selected id is not 0
+                rentalItemViewModel.rentalItemRentState.value.id > 0 -> ConfirmItemRent(
+                    error = rentalItemViewModel.rentalItemRentState.value.error,
+                    onDismiss = { rentalItemViewModel.setRentItemId(0) },
+                    onConfirm = { rentalItemViewModel.rentItem() })
+
                 else -> LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(rentalItemViewModel.rentalItemsState.value.list) {
                         Column(
@@ -149,7 +175,7 @@ fun RentalItemScreen(onBackArrowClick: () -> Unit,
                                         contentDescription = stringResource(id = R.string.add_item)
                                     )
                                 }
-                                IconButton(onClick = { Log.d("antti", rentalItemViewModel.rentalItemsState.value.list.toString()) }) {
+                                IconButton(onClick = { rentalItemViewModel.setRentItemId(it.rentalItemId) }) {
                                     Icon(
                                         imageVector = Icons.Default.Check,
                                         contentDescription = stringResource(id = R.string.add_item)

@@ -23,6 +23,10 @@ data class RentalItemDeleteState(
     val id: Int = 0,
     val error: String? = null
 )
+data class RentalItemRentState(
+    val id: Int = 0,
+    val error: String? = null
+)
 
 
 data class RentalItemsByCategoryRes(
@@ -63,4 +67,9 @@ data class UpdateItemRes(
 data class ItemCategory(
     @SerializedName("category_id")
     val categoryId: Int = 0
+)
+
+data class RentItemReq(
+    @SerializedName("auth_user_auth_user_id")
+    val userId: Int = 1
 )

@@ -1,6 +1,7 @@
 package com.example.varastohallinta_frontend.api
 
 import com.example.varastohallinta_frontend.model.AddRentalItemReq
+import com.example.varastohallinta_frontend.model.RentItemReq
 import com.example.varastohallinta_frontend.model.RentalItemsByCategoryRes
 import com.example.varastohallinta_frontend.model.UpdateItemReq
 import com.example.varastohallinta_frontend.model.UpdateItemRes
@@ -33,4 +34,9 @@ interface RentalItemsApi {
 
     @DELETE("rentalitem/{rentalItemId}")
     suspend fun removeItem(@Path("rentalItemId") rentalItemId: Int)
+
+    @POST("rentalitem/{rentalItemId}/rent")
+    suspend fun rentItem(
+        @Path("rentalItemId") rentalItemId: Int,
+        @Body reqBody: RentItemReq)
 }
