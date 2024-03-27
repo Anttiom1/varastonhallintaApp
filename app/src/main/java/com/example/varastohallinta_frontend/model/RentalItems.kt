@@ -48,3 +48,8 @@ data class AddRentalItemReq(
     @SerializedName("created_by_user_id")
     val createdByUserId: Int = 1
 )
+
+data class UpdateItemReq(
+    @SerializedName("rental_item_name")
+    val rentalItemName: String = ""
+)

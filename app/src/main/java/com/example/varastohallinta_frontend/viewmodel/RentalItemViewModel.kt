@@ -11,6 +11,7 @@ import com.example.varastohallinta_frontend.api.rentalItemsServices
 import com.example.varastohallinta_frontend.model.CategoriesState
 import com.example.varastohallinta_frontend.model.CategoryItem
 import com.example.varastohallinta_frontend.model.RentalItemDeleteState
+import com.example.varastohallinta_frontend.model.RentalItemState
 import com.example.varastohallinta_frontend.model.RentalItemsState
 import kotlinx.coroutines.launch
 
@@ -20,6 +21,7 @@ class RentalItemViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
     val rentalItemsState: State<RentalItemsState> = _rentalItemsState
     private val _rentalItemDeleteState = mutableStateOf(RentalItemDeleteState())
     val rentalItemDeleteState = _rentalItemDeleteState
+
     var categoryName: String = ""
 
     init {
@@ -60,7 +62,6 @@ class RentalItemViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
                 _rentalItemsState.value = _rentalItemsState.value.copy(loading = true)
                 val rentalItemsByCategoryRes = rentalItemsServices.getItemsByCategory(categoryId)
                 _rentalItemsState.value = _rentalItemsState.value.copy(list = rentalItemsByCategoryRes.list)
-                Log.d("test","test")
             }
             catch (e: Exception){
                 Log.d("test", e.toString())

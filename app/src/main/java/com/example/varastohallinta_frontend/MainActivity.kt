@@ -174,7 +174,8 @@ class MainActivity : ComponentActivity() {
                                     navController.navigateUp()
                                 }, gotoRentalItemAdd = {
                                     navController.navigate("rentalItemAddScreen/${it}")
-                                })
+                                }, goToRentalItemEdit = {
+                                    navController.navigate("rentalEditScreen/${it.rentalItemId}")},)
                             }
                             composable("rentalItemAddScreen/{categoryId}"){
                                 RentalItemAddScreen(goBack = {
@@ -195,6 +196,10 @@ class MainActivity : ComponentActivity() {
                             }
                             composable("createAccountScreen"){
                                 CreateAccountScreen(goBack = {navController.navigateUp()})
+                            }
+                            composable("rentalEditScreen/{rentalItemId}"){
+                                RentalItemEditScreen(goBack = { navController.navigateUp() },
+                                    )
                             }
                         }
                     }

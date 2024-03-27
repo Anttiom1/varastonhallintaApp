@@ -2,10 +2,12 @@ package com.example.varastohallinta_frontend.api
 
 import com.example.varastohallinta_frontend.model.AddRentalItemReq
 import com.example.varastohallinta_frontend.model.RentalItemsByCategoryRes
+import com.example.varastohallinta_frontend.model.UpdateItemReq
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 
@@ -16,13 +18,16 @@ interface RentalItemsApi {
     @GET("category/{categoryId}/items")
     suspend fun getItemsByCategory(@Path("categoryId") categoryId: Int): RentalItemsByCategoryRes
 
-    @GET("category/{categoryId}")
-    suspend fun  getCategoryName(@Path("categoryId") categoryId: Int)
-
     @POST("category/{categoryId}/items")
     suspend fun addItemToCategory(
         @Path("categoryId") categoryId: Int,
         @Body addRentalItemReq: AddRentalItemReq
+    )
+
+    @PUT("rentalitem/{rentalItemId}")
+    suspend fun editItem(
+        @Path("rentalItemId") rentalItemId: Int,
+        @Body reqBody: UpdateItemReq
     )
 
     @DELETE("rentalitem/{rentalItemId}")

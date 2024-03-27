@@ -65,14 +65,15 @@ fun ConfirmItemDelete(error: String?, onDismiss: () -> Unit, onConfirm: () -> Un
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RentalItemScreen(onBackArrowClick: () -> Unit,
-                     gotoRentalItemAdd: (Int) -> Unit
+                     gotoRentalItemAdd: (Int) -> Unit,
+                     goToRentalItemEdit: (RentalItem)-> Unit
 ){
     val rentalItemViewModel : RentalItemViewModel = viewModel()
 
     Scaffold(
         floatingActionButtonPosition = FabPosition.Center,
         floatingActionButton = {
-            FloatingActionButton(onClick = { gotoRentalItemAdd(rentalItemViewModel.categoryId); Log.d("jyy", rentalItemViewModel.categoryId.toString())}) {
+            FloatingActionButton(onClick = { gotoRentalItemAdd(rentalItemViewModel.categoryId);}) {
             Icon(imageVector = Icons.Filled.Add, contentDescription = "add") }
 
         },
@@ -141,7 +142,7 @@ fun RentalItemScreen(onBackArrowClick: () -> Unit,
                                         contentDescription = stringResource(id = R.string.delete)
                                     )
                                 }
-                                IconButton(onClick = {/*TODO muokkaa rental item. gotoCategoryEdit(it) */}) {
+                                IconButton(onClick = { goToRentalItemEdit(it) }) {
                                     Icon(
                                         imageVector = Icons.Default.Edit,
                                         contentDescription = stringResource(id = R.string.add_item)
