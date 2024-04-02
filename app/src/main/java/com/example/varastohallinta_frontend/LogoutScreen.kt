@@ -25,7 +25,6 @@ fun LogoutScreen(goToLoginScreen: ()-> Unit){
         if(logoutViewModel.logoutState.value.logoutOk){
             logoutViewModel.setLogout(false)
             goToLoginScreen()
-            Log.d("antti", "ok")
         }
         else
             logoutViewModel.logout()

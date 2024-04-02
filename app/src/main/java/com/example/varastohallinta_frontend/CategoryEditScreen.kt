@@ -54,7 +54,7 @@ fun CategoryEditScreen(goToCategories: () -> Unit, goBack: () -> Unit) {
                     Modifier.align(Alignment.Center)
                 )
 
-                categoryEditViewModel.categoryState.value.error != null -> Text(text = stringResource(id = R.string.error) +": ${categoryEditViewModel.categoryState.value.error}")
+                categoryEditViewModel.categoryState.value.error != null -> Text(stringResource(id = R.string.error) +": ${categoryEditViewModel.categoryState.value.error}")
                 else -> Column(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,

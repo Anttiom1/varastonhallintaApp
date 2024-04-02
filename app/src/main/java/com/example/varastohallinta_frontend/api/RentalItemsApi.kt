@@ -2,6 +2,7 @@ package com.example.varastohallinta_frontend.api
 
 import com.example.varastohallinta_frontend.model.AddRentalItemReq
 import com.example.varastohallinta_frontend.model.RentItemReq
+import com.example.varastohallinta_frontend.model.RentalItem
 import com.example.varastohallinta_frontend.model.RentalItemsByCategoryRes
 import com.example.varastohallinta_frontend.model.UpdateItemReq
 import com.example.varastohallinta_frontend.model.UpdateItemRes
@@ -39,4 +40,7 @@ interface RentalItemsApi {
     suspend fun rentItem(
         @Path("rentalItemId") rentalItemId: Int,
         @Body reqBody: RentItemReq)
+
+    @GET("rentalitem/{rentalItemId}")
+    suspend fun getItemByItemId(@Path ("rentalItemId") rentalItemId : Int): RentalItem
 }

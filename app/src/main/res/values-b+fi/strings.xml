@@ -16,4 +16,18 @@
     <string name="logout">Kirjaudu ulos</string>
     <string name="add_category">Lisää kategoria</string>
     <string name="add_item">Lisää tavara</string>
+    <string name="categories">Kategoriat</string>
+    <string name="dark_mode">Tumma teema</string>
+    <string name="delete_item_confirm">Oletko varma että haluat poistaa tämän tavaran?</string>
+    <string name="cancel">Peruuta</string>
+    <string name="delete_item">Poista tavara</string>
+    <string name="confirm">Vahvista</string>
+    <string name="rent_item">Tavara</string>
+    <string name="edit_item">Muokkaa tavaraa</string>
+    <string name="item_name">Tavaran nimi</string>
+    <string name="create_account">Luo käyttäjä</string>
+    <string name="category_name">Kategorian nimi</string>
+    <string name="delete_category">Poista kategoria</string>
+    <string name="delete_category_confirm">Oletko varma että haluat poistaa tämän kategorian?</string>
+    <string name="rent_item_confirm">Oletko varma että haluat vuokrata tämän tavaran?</string>
 </resources>

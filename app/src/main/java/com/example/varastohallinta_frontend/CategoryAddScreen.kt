@@ -38,7 +38,7 @@ fun CategoryAddScreen(goBack: () -> Unit,
     }
 
         Scaffold(
-            topBar = { TopAppBar(title = { Text(text = "Add new category")})}
+            topBar = { TopAppBar(title = { Text(stringResource(R.string.add_category))})}
         ){
             Box(
                 modifier = Modifier
@@ -52,7 +52,7 @@ fun CategoryAddScreen(goBack: () -> Unit,
                 ) {
                     OutlinedTextField(value = categoryAddViewModel.categoryState.value.categoryName,
                         onValueChange = { categoryAddViewModel.setName(it) },
-                        placeholder = { Text(text = "Category name")})
+                        placeholder = { Text(stringResource(R.string.category_name))})
                     Spacer(modifier = Modifier.height(16.dp))
                     Row {
                         Button(onClick = {

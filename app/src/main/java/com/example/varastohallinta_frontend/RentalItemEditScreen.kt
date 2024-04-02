@@ -42,7 +42,7 @@ fun RentalItemEditScreen(goBack:()-> Unit,
     Scaffold(
         topBar = {
             TopAppBar(title = {
-                Text(text = "")
+                Text(text = vm.rentalItemState.value.rentalItemName)
             })
         }
     ) {
@@ -67,7 +67,7 @@ fun RentalItemEditScreen(goBack:()-> Unit,
                         onValueChange = { name ->
                             vm.setName(name)
                         },
-                        placeholder = { Text(text = "Edit item")})
+                        placeholder = { Text(stringResource(R.string.edit_item))})
                     Spacer(modifier = Modifier.height(16.dp))
                     Row {
                         Button(onClick = {

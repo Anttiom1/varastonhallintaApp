@@ -53,7 +53,6 @@ fun CreateAccountScreen(goBack:()->Unit){
         if(createAccountViewModel.createAccountState.value.done) {
             createAccountViewModel.setDone(false)
             goBack()
-            Log.d("antti", "amsda")
         }
     }
 
@@ -101,7 +100,7 @@ fun CreateAccountScreen(goBack:()->Unit){
                     Button(onClick = {
                         createAccountViewModel.createAccount()
                     }) {
-                        Text(text = "Create account")
+                        Text(stringResource(R.string.create_account))
                     }
                     Spacer(modifier = Modifier.width(8.dp))
                     Button(onClick = { goBack() }) {

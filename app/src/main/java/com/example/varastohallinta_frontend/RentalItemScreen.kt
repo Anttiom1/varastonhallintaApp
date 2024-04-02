@@ -51,19 +51,19 @@ fun ConfirmItemDelete(error: String?, onDismiss: ()-> Unit, onConfirm: ()-> Unit
     }
     AlertDialog(
         onDismissRequest = { },
-        confirmButton = { TextButton(onClick = { onConfirm() }) { Text(text = "Confirm") }},
-        dismissButton = { TextButton(onClick = { onDismiss() }) { Text(text = "Cancel") }},
+        confirmButton = { TextButton(onClick = { onConfirm() }) { Text(stringResource(R.string.delete_item_confirm)) }},
+        dismissButton = { TextButton(onClick = { onDismiss() }) { Text(stringResource(R.string.cancel)) }},
         icon =  {Icon(
             imageVector = Icons.Default.Delete,
             contentDescription = stringResource(id = R.string.delete)
         ) },
-        text = { Text(text = "Are you sure you want to delete this item?")},
-        title = { Text(text = "Delete item")}
+        text = { Text(stringResource(R.string.delete_item_confirm))},
+        title = { Text(stringResource(R.string.delete_item))}
     )
 }
 
 @Composable
-fun ConfirmItemRent(error: String?, onDismiss:()-> Unit, onConfirm:()-> Unit ){
+fun ConfirmItemRent(error: String?, onDismiss:()-> Unit, onConfirm:()-> Unit, rentalItemName: String ){
     val context = LocalContext.current
     LaunchedEffect(key1 = error){
         error?.let {
@@ -72,13 +72,13 @@ fun ConfirmItemRent(error: String?, onDismiss:()-> Unit, onConfirm:()-> Unit ){
     }
     AlertDialog(
         onDismissRequest = { },
-        confirmButton = { TextButton(onClick = { onConfirm() }) { Text(text = "Confirm") }},
-        dismissButton = { TextButton(onClick = { onDismiss() }) { Text(text = "Cancel") }},
+        confirmButton = { TextButton(onClick = { onConfirm() }) { Text(stringResource(R.string.confirm)) }},
+        dismissButton = { TextButton(onClick = { onDismiss() }) { Text(stringResource(R.string.cancel)) }},
         icon =  {Icon(
             imageVector = Icons.Default.Check,
-            contentDescription = "Confirm")},
-        text = { Text(text = "Are you sure you want to rent this item?")},
-        title = { Text(text = "Rent item")}
+            contentDescription = stringResource(R.string.confirm))},
+        text = { Text(stringResource(R.string.rent_item_confirm))},
+        title = { Text(rentalItemName)}
     )
 }
 
@@ -95,7 +95,7 @@ fun RentalItemScreen(onBackArrowClick: () -> Unit,
         floatingActionButtonPosition = FabPosition.Center,
         floatingActionButton = {
             FloatingActionButton(onClick = { gotoRentalItemAdd(rentalItemViewModel.categoryId);}) {
-            Icon(imageVector = Icons.Filled.Add, contentDescription = "add") }
+            Icon(imageVector = Icons.Filled.Add, contentDescription = stringResource(R.string.add_category)) }
 
         },
         topBar = {
@@ -133,10 +133,11 @@ fun RentalItemScreen(onBackArrowClick: () -> Unit,
                     onDismiss = { rentalItemViewModel.setDeletableItemId(0) },
                     onConfirm = { rentalItemViewModel.deleteItem() })
 
-                //Opens the delete screen prompt when selected id is not 0
+                //Opens the rent screen prompt when selected id is not 0
                 rentalItemViewModel.rentalItemRentState.value.id > 0 -> ConfirmItemRent(
+                    rentalItemName = rentalItemViewModel.rentalItemRentState.value.rentalItemName,
                     error = rentalItemViewModel.rentalItemRentState.value.error,
-                    onDismiss = { rentalItemViewModel.setRentItemId(0) },
+                    onDismiss = { rentalItemViewModel.setRentItemId(0, "") },
                     onConfirm = { rentalItemViewModel.rentItem() })
 
                 else -> LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -175,7 +176,7 @@ fun RentalItemScreen(onBackArrowClick: () -> Unit,
                                         contentDescription = stringResource(id = R.string.add_item)
                                     )
                                 }
-                                IconButton(onClick = { rentalItemViewModel.setRentItemId(it.rentalItemId) }) {
+                                IconButton(onClick = { rentalItemViewModel.setRentItemId(it.rentalItemId, it.rentalItemName) }) {
                                     Icon(
                                         imageVector = Icons.Default.Check,
                                         contentDescription = stringResource(id = R.string.add_item)

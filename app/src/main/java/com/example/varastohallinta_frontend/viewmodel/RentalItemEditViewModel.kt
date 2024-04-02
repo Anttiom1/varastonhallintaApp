@@ -24,6 +24,26 @@ class RentalItemEditViewModel(savedStateHandle: SavedStateHandle): ViewModel() {
         _rentalItemState.value = _rentalItemState.value.copy(done = done)
     }
 
+    init {
+        getRentalItemById()
+    }
+
+    private fun getRentalItemById(){
+        viewModelScope.launch {
+            try {
+                _rentalItemState.value = _rentalItemState.value.copy(loading = true)
+                val res = rentalItemsServices.getItemByItemId(id)
+                _rentalItemState.value = _rentalItemState.value.copy(rentalItemName = res.rentalItemName)
+            }
+            catch (e: Exception){
+                _rentalItemState.value = _rentalItemState.value.copy(error = e.toString())
+            }
+            finally {
+                _rentalItemState.value = _rentalItemState.value.copy(loading = false)
+            }
+        }
+    }
+
     fun setName(name: String){
         _rentalItemState.value = _rentalItemState.value.copy(rentalItemName = name)
     }

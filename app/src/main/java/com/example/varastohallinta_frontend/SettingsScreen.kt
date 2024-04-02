@@ -35,6 +35,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.varastohallinta_frontend.model.userSettings
@@ -57,11 +58,11 @@ fun SettingsScreen(
                 IconButton(onClick = { onMenuClick() }) {
                     Icon(
                         imageVector = Icons.Default.Menu,
-                        contentDescription = "Menu"
+                        contentDescription = stringResource(R.string.menu)
                     )
                 }
             },
-            title = { Text(text = "Categories") },
+            title = { Text(stringResource(R.string.categories)) },
         )
     }) {
         Surface(
@@ -82,7 +83,7 @@ fun MultipleSwitchesColumn(
     // Create a list of switch items
 
     val switchItems = listOf(
-        SwitchItem("Dark Mode", onDarkModeClicked, checked = settingsViewModel.userSettingsState.value.darkMode),
+        SwitchItem(stringResource(R.string.dark_mode), onDarkModeClicked, checked = settingsViewModel.userSettingsState.value.darkMode),
 
         // Add more items as needed
     )

@@ -71,14 +71,18 @@ fun ConfirmCategoryDelete(error: String?, onDismiss: () -> Unit, onConfirm: () -
             Toast.makeText(context, error, Toast.LENGTH_LONG).show()
         }
     }
-    AlertDialog(onDismissRequest = {  },
-        dismissButton = { TextButton(onClick = { onDismiss() }) { Text(text = "Cancel") }},
-        confirmButton = { TextButton(onClick = { onConfirm() }) { Text(text = "Confirm") }},
-        icon = { Icon(
-            imageVector = Icons.Default.Delete,
-            contentDescription = "Delete category"
-    )}, text = {Text("Are you sure you want to delete this category?")},
-        title = {Text("Delete Category") },
+    AlertDialog(
+        onDismissRequest = { },
+        dismissButton = { TextButton(onClick = { onDismiss() }) { Text(stringResource(R.string.cancel)) } },
+        confirmButton = { TextButton(onClick = { onConfirm() }) { Text(stringResource(R.string.confirm)) } },
+        icon = {
+            Icon(
+                imageVector = Icons.Default.Delete,
+                contentDescription = stringResource(R.string.delete_category)
+            )
+        },
+        text = { Text(stringResource(R.string.delete_category_confirm)) },
+        title = { Text(stringResource(R.string.delete_category)) },
     )
 }
 
@@ -96,7 +100,7 @@ fun CategoriesScreen(
     Scaffold(
         floatingActionButtonPosition = FabPosition.Center,
         floatingActionButton = {FloatingActionButton(onClick = { gotoCategoryAdd()}) {
-            Icon(imageVector = Icons.Filled.Add, contentDescription = "add") }
+            Icon(imageVector = Icons.Filled.Add, contentDescription = stringResource(R.string.add_category)) }
 
         },
         topBar = {
@@ -144,7 +148,7 @@ fun CategoriesScreen(
                                     modifier = Modifier
                                         .clickable {
                                             gotoRentalItemScreen(it)
-                                            Log.d("juuh", it.categoryId.toString()) }
+                                        }
                                         .fillMaxWidth(),
 
                                     horizontalArrangement = Arrangement.SpaceBetween

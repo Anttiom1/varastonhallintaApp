@@ -171,7 +171,7 @@ class MainActivity : ComponentActivity() {
                             }
                             composable("rentalItemScreen/{categoryId}/items"){
                                 RentalItemScreen(onBackArrowClick = {
-                                    navController.navigateUp()
+                                    navController.navigate("categoriesScreen")
                                 }, gotoRentalItemAdd = {
                                     navController.navigate("rentalItemAddScreen/${it}")
                                 }, goToRentalItemEdit = {

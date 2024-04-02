@@ -126,7 +126,7 @@ fun LoginScreen(goToLandingScreen: () -> Unit,
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 ClickableText(
-                    text = AnnotatedString("Create account"),
+                    text = AnnotatedString(stringResource(R.string.create_account)),
                     style = TextStyle(textDecoration = TextDecoration.Underline),
                     onClick = { goToCreateAccount() })
 

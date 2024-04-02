@@ -32,6 +32,7 @@ class RentalItemViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
 
     var categoryName: String = ""
 
+
     init {
         viewModelScope.launch {
             getRentalItemsByCategory()
@@ -44,8 +45,10 @@ class RentalItemViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
         rentalItemDeleteState.value = rentalItemDeleteState.value.copy(id = id)
     }
 
-    fun setRentItemId(id: Int){
+    fun setRentItemId(id: Int, rentalItemName: String){
         rentalItemRentState.value = rentalItemRentState.value.copy(id = id)
+        rentalItemRentState.value = rentalItemRentState.value.copy(rentalItemName = rentalItemName )
+
     }
 
     fun deleteItem(){
@@ -77,7 +80,7 @@ class RentalItemViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
                     _rentItemReq.value = _rentItemReq.value.copy(userId = loggedUser.authUserId)
                 }
                 rentalItemsServices.rentItem(_rentalItemRentState.value.id, reqBody = rentItemReq.value)
-                setRentItemId(0)
+                setRentItemId(0, "")
             }
             catch (e: Exception){
                 _rentalItemRentState.value = _rentalItemRentState.value.copy(error = e.toString())

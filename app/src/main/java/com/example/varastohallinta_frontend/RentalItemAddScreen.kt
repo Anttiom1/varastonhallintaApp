@@ -39,7 +39,7 @@ fun RentalItemAddScreen(
         }
     }
 
-    Scaffold(topBar = { TopAppBar(title = { Text(text = "Add new item") })}) {
+    Scaffold(topBar = { TopAppBar(title = { Text(stringResource(R.string.add_item)) })}) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -52,13 +52,11 @@ fun RentalItemAddScreen(
             ) {
                 OutlinedTextField(value = rentalItemAddViewModel.rentalItemState.value.rentalItemName,
                     onValueChange = { rentalItemAddViewModel.setName(it) },
-                    placeholder = { Text(text = "Item name")})
+                    placeholder = { Text(stringResource(R.string.item_name))})
                 Spacer(modifier = Modifier.height(16.dp))
                 Row {
                     Button(onClick = {
                         rentalItemAddViewModel.addItemToCategory()
-                        Log.d("jyy", rentalItemAddViewModel.categoryId.toString())
-
                     }) {
                         Text(text = stringResource(id = R.string.add_item))
                     }
