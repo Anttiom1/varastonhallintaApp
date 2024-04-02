@@ -42,7 +42,7 @@ import com.example.varastohallinta_frontend.model.RentalItem
 import com.example.varastohallinta_frontend.viewmodel.RentalItemViewModel
 
 @Composable
-fun ConfirmItemDelete(error: String?, onDismiss: ()-> Unit, onConfirm: ()-> Unit){
+fun ConfirmItemDelete(error: String?, onDismiss: ()-> Unit, onConfirm: ()-> Unit, rentalItemName: String){
     val context = LocalContext.current
     LaunchedEffect(key1 = error){
         error?.let {
@@ -51,14 +51,14 @@ fun ConfirmItemDelete(error: String?, onDismiss: ()-> Unit, onConfirm: ()-> Unit
     }
     AlertDialog(
         onDismissRequest = { },
-        confirmButton = { TextButton(onClick = { onConfirm() }) { Text(stringResource(R.string.delete_item_confirm)) }},
+        confirmButton = { TextButton(onClick = { onConfirm() }) { Text(stringResource(R.string.confirm)) }},
         dismissButton = { TextButton(onClick = { onDismiss() }) { Text(stringResource(R.string.cancel)) }},
         icon =  {Icon(
             imageVector = Icons.Default.Delete,
             contentDescription = stringResource(id = R.string.delete)
         ) },
         text = { Text(stringResource(R.string.delete_item_confirm))},
-        title = { Text(stringResource(R.string.delete_item))}
+        title = { Text(text = rentalItemName)}
     )
 }
 
@@ -129,8 +129,9 @@ fun RentalItemScreen(onBackArrowClick: () -> Unit,
 
                 //Opens the delete screen prompt when selected id is not 0
                 rentalItemViewModel.rentalItemDeleteState.value.id > 0 -> ConfirmItemDelete(
+                    rentalItemName = rentalItemViewModel.rentalItemDeleteState.value.rentalItemName,
                     error = rentalItemViewModel.rentalItemDeleteState.value.error,
-                    onDismiss = { rentalItemViewModel.setDeletableItemId(0) },
+                    onDismiss = { rentalItemViewModel.setDeletableItemId(0, "") },
                     onConfirm = { rentalItemViewModel.deleteItem() })
 
                 //Opens the rent screen prompt when selected id is not 0
@@ -164,7 +165,7 @@ fun RentalItemScreen(onBackArrowClick: () -> Unit,
                                     .fillMaxWidth(),
                                 horizontalArrangement = Arrangement.End
                             ) {
-                                IconButton(onClick = { rentalItemViewModel.setDeletableItemId(it.rentalItemId) }) {
+                                IconButton(onClick = { rentalItemViewModel.setDeletableItemId(it.rentalItemId, it.rentalItemName) }) {
                                     Icon(
                                         imageVector = Icons.Default.Delete,
                                         contentDescription = stringResource(id = R.string.delete)

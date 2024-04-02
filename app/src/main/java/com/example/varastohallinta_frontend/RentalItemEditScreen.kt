@@ -42,7 +42,7 @@ fun RentalItemEditScreen(goBack:()-> Unit,
     Scaffold(
         topBar = {
             TopAppBar(title = {
-                Text(text = vm.rentalItemState.value.rentalItemName)
+                Text(text = "")
             })
         }
     ) {

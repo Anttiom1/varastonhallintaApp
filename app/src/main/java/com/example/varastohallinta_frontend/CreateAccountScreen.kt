@@ -13,11 +13,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -37,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.varastohallinta_frontend.viewmodel.CreateAccountViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateAccountScreen(goBack:()->Unit){
     val createAccountViewModel : CreateAccountViewModel = viewModel()
@@ -56,7 +59,9 @@ fun CreateAccountScreen(goBack:()->Unit){
         }
     }
 
-    Scaffold {
+    Scaffold(
+        topBar = { TopAppBar(title = { Text(stringResource(R.string.create_account)) }) })
+    {
         Box(
             modifier = Modifier
                 .fillMaxSize()

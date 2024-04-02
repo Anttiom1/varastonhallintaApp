@@ -20,6 +20,7 @@ data class RentalItemState(
 )
 
 data class RentalItemDeleteState(
+    val rentalItemName: String = "",
     val id: Int = 0,
     val error: String? = null
 )

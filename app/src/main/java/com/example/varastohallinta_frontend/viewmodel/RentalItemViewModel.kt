@@ -41,8 +41,9 @@ class RentalItemViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
     }
 
 
-    fun setDeletableItemId(id: Int){
+    fun setDeletableItemId(id: Int, rentalItemName: String){
         rentalItemDeleteState.value = rentalItemDeleteState.value.copy(id = id)
+        rentalItemDeleteState.value = rentalItemDeleteState.value.copy(rentalItemName = rentalItemName )
     }
 
     fun setRentItemId(id: Int, rentalItemName: String){
@@ -62,7 +63,7 @@ class RentalItemViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
                 _rentalItemsState.value = _rentalItemsState.value.copy(list = items)
 
                 //Sets id to 0 so that the delete screen goes away
-                setDeletableItemId(0)
+                setDeletableItemId(0, "")
 
             } catch(e: Exception) {
                 Log.d("asd", e.toString())

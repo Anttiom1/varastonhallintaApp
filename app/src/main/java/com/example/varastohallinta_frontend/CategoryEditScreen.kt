@@ -40,7 +40,7 @@ fun CategoryEditScreen(goToCategories: () -> Unit, goBack: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(title = {
-                Text(text = categoryEditViewModel.categoryState.value.categoryName)
+                Text(text = "")
             })
         }
     ) {
